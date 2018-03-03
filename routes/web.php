@@ -31,3 +31,9 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      */
     include_route_files(__DIR__.'/backend/');
 });
+
+Route::get('/forum', 'Controller@forum')->middleware('auth')->name('forum');
+Route::get('/create_news', 'Controller@create')->middleware('auth')->name('create_news');
+Route::post('/store_news', 'Controller@store')->middleware('auth')->name('store_news');
+
+

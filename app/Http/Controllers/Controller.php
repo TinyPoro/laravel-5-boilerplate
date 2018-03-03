@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\News;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 /**
  * Class Controller.
@@ -13,4 +19,56 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function forum(Request $request){
+        if($category = $request->get('category')){
+            $news = News::with('categories')
+                ->whereHas('categories', function($query) use ($category){
+                    $query->where('name', 'like', "%$category%");
+                })->get();
+        }else $news = News::all();
+
+        $top_cate = DB::table('category_news')->selectRaw('category_id, COUNT(*) as count')
+            ->groupBy('category_id')
+            ->orderBy('count', 'desc')
+            ->limit(10)
+            ->get();
+
+        foreach ($top_cate as $key => $cate) {
+            $top_cate[$key]->name = Category::find($cate->category_id)->name;
+        }
+
+        return view('frontend.forum', ['news'=>$news, 'top_cate'=>$top_cate]);
+    }
+
+    public function create(){
+        return view('frontend.createNews');
+    }
+
+    public function store(Request $request){
+        $user = Auth::user();
+
+        $title = $request->get('title');
+        $content = $request->get('content');
+        $categories = $request->get('category');
+
+        $news = new News();
+        $news->user_id = $user->id;
+        $news->title = $title;
+        $news->content = $content;
+        $news->save();
+
+        foreach ($categories as $category){
+            $cate = Category::where('name', $category)->first();
+
+            if(!$cate) {
+                $cate = new Category();
+                $cate->name = $category;
+                $cate->save();
+            }
+
+            $news->categories()->attach($cate->id);
+        }
+        return "ok";
+    }
 }

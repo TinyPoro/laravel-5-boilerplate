@@ -19,7 +19,8 @@
         <!-- Check if the language is set to RTL, so apply the RTL layouts -->
         <!-- Otherwise apply the normal LTR layouts -->
         {{ style(mix('css/frontend.css')) }}
-
+        <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url('css/custom.css')}}">
         @stack('after-styles')
     </head>
     <body>
@@ -35,8 +36,12 @@
 
         <!-- Scripts -->
         @stack('before-scripts')
+        <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
         {!! script(mix('js/frontend.js')) !!}
-        @stack('after-scripts')
+        {{--<script src="{{url('js/popper.min.js')}}"> </script>--}}
+{{--        <script src="{{url('js/bootstrap.min.js')}}"></script>--}}
+        {{--<script src="{{url('js/moment.min.js')}}"></script>--}}
+        @yield('after-scripts')
 
         @include('includes.partials.ga')
     </body>
