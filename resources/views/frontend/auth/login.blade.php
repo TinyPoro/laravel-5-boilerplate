@@ -17,9 +17,9 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    {{ html()->label(__('validation.attributes.frontend.email'))->for('email') }}
+                                    {{ html()->label(__('validation.attributes.frontend.email'))->for('name') }}
 
-                                    {{ html()->email('email')
+                                    {{ html()->text('name')
                                         ->class('form-control')
                                         ->placeholder(__('validation.attributes.frontend.email'))
                                         ->attribute('maxlength', 191)

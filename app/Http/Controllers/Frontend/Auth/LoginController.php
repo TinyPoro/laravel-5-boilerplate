@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Helpers\Auth\Auth;
+use GuzzleHttp\Client;
+use Cache;
 use Illuminate\Http\Request;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
@@ -36,6 +38,101 @@ class LoginController extends Controller
     {
         return view('frontend.auth.login')
             ->withSocialiteLinks((new Socialite)->getSocialLinks());
+    }
+
+    public function login(Request $request)
+    {
+        $name = $request['name'];
+        $pass = $request['password'];
+
+        $client = new Client();
+        Cache::forever('name', $name);
+        Cache::forever('pass', $pass);
+        $response = $client->request(
+            'POST',
+            'http://127.0.0.1:8080/',
+//            'http://vnp.idist.me:81/',
+            [
+                'form_params' => [
+                    'script' => '[{ "type":"visit", 
+                                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
+                                  { "type":"input", 
+                                  "selector":"#username",
+                                    "value":"'.$name.'"
+                                  },
+                                  { "type":"input", 
+                                  "selector":"#password",
+                                    "value":"'.$pass.'"
+                                  },
+                                  { "type":"submit", 
+                                  "selector":"#btnSignin",
+                                    "action":"click"
+                                  },
+                                  { "type":"get_html", 
+                                  "selector":"#calendar"
+                                  }
+                                ]'
+                ]
+            ]
+        );
+
+        $html = $response->getBody()->getContents();
+
+        return view('frontend.auth.table', ['html' => $html])
+            ->withSocialiteLinks((new Socialite)->getSocialLinks());
+    }
+
+    public function addLunch(Request $request)
+    {
+        $date_arr = $request['date_arr'];
+
+        $client = new Client();
+        $name = Cache::get('name');
+        $pass = Cache::get('pass');
+
+        $data = '[{ "type":"visit", 
+                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
+                  { "type":"input", 
+                  "selector":"#username",
+                    "value":"'.$name.'"
+                  },
+                  { "type":"input", 
+                  "selector":"#password",
+                    "value":"'.$pass.'"
+                  },
+                  { "type":"submit", 
+                  "selector":"#btnSignin",
+                    "action":"click"
+                  },
+                { "type":"reload", 
+                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
+                 ';
+
+        foreach ($date_arr as $date){
+            $data .= '{ "type":"change", 
+                  "selector":"[data-date=\''.$date.'\']",
+                    "value":"clickAble"
+                  },';
+        }
+
+        $data .= '{ "type":"submit", 
+                  "selector":"#btnSaveCrmContact",
+                    "action":"click"
+                  }
+                ]';
+
+        $response = $client->request(
+            'POST',
+            'http://127.0.0.1:8080/',
+//            'http://vnp.idist.me:81/',
+            [
+                'form_params' => [
+                    'script' => $data
+                ]
+            ]
+        );
+
+        return "ok";
     }
 
     /**

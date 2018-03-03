@@ -31,3 +31,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      */
     include_route_files(__DIR__.'/backend/');
 });
+
+Route::post('lunch', ['as' => 'add.lunch', 'uses' => 'Frontend\Auth\LoginController@addLunch']);
