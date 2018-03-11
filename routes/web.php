@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
  * Backend Routes
  * Namespaces indicate folder structure
  */
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'backend'], function () {
     /*
      * These routes need view-backend permission
      * (good if you want to allow more than one group in the backend,
@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 });
 
 Route::get('/forum', 'Controller@forum')->middleware('auth')->name('forum');
-Route::get('/create_news', 'Controller@create')->middleware('auth')->name('create_news');
-Route::post('/store_news', 'Controller@store')->middleware('auth')->name('store_news');
+Route::get('/create_news', 'Controller@createNews')->middleware('auth')->name('create_news');
+Route::post('/store_news', 'Controller@storeNews')->middleware('auth')->name('store_news');
 
 

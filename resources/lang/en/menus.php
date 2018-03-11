@@ -37,6 +37,22 @@ return [
             ],
         ],
 
+        'news_management' => [
+            'title' => 'Quản lý tin tức',
+
+            'news' => [
+                'deleted'        => 'Các tin tức bị xóa',
+                'view'     => 'Chi tiết tin tức',
+                'edit'       => 'Chỉnh sửa tin tức',
+            ],
+
+            'category' => [
+                'deleted'        => 'Các danh mục bị xóa',
+                'view'     => 'Chi tiết danh mục',
+                'edit'       => 'Chỉnh sửa danh mục',
+            ],
+        ],
+
         'log-viewer' => [
             'main'      => 'Log Viewer',
             'dashboard' => 'Dashboard',

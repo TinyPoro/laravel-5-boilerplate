@@ -53,6 +53,6 @@
     <!-- Scripts -->
     @stack('before-scripts')
     {!! script(mix('js/backend.js')) !!}
-    @stack('after-scripts')
+    @yield('after-scripts')
 </body>
 </html>

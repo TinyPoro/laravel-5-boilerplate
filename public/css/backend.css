@@ -18771,3 +18771,61 @@ hr.transparent {
   border-right-color: #536c79;
 }
 
+#render{
+  float:left;
+}
+
+.rendered-element {
+  margin: -3px 3px 0;
+}
+
+.post-tag{
+  font-size: 12px;
+  color: #39739d;
+  background-color: #E1ECF4;
+  border-color: transparent;
+  position: relative;
+  display: inline-block;
+  padding: .4em .5em;
+  margin: 2px 2px 2px 0;
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0;
+  transition: all .15s ease-in-out;
+}
+
+.delete-tag {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  background-position: -40px -319px;
+  cursor: pointer;
+  margin-left: 3px;
+  margin-top: -2px;
+  margin-bottom: -1px;
+  background-image: url(../img/sprites.svg?v=1b3cdae197be),none;
+  background-size: initial;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+#cate-form{
+  border: 1px solid #c8ccd0;
+  cursor: text;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+#cate-box {
+  overflow: hidden;
+}
+
+#cate-box input{
+  border: none;
+}

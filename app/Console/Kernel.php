@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CreatePermission;
 use App\Console\Commands\CreateRole;
 use App\Console\Commands\FakeData;
 use Illuminate\Console\Scheduling\Schedule;
@@ -20,6 +21,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         CreateRole::class,
         FakeData::class,
+        CreatePermission::class,
     ];
 
     /**

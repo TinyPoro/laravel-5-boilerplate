@@ -159,6 +159,17 @@ return [
                     'language'                => 'Language',
                 ],
             ],
+            'news_management' => [
+                'news' => [
+                    'title'       => 'Tiêu đề',
+                    'content'   => 'Nội dung',
+                    'category'    => 'Danh mục',
+                ],
+                'category' => [
+                    'name' => 'Danh mục',
+                    'parent_name' =>'Danh mục cha',
+                ]
+            ]
         ],
 
         'frontend' => [

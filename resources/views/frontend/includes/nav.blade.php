@@ -57,7 +57,7 @@
                                 @can('view backend')
                                     <li><a href="{{ route('admin.dashboard') }}" class="dropdown-item">{{ __('navs.frontend.user.administration') }}</a></li>
                                 @endcan
-                                <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Inbox</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ route('forum') }}">Forum</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-3" href="{{ route('frontend.auth.logout') }}">Log Out</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-4" href="04_new_account.html">Create account</a></li>
                             </ul>

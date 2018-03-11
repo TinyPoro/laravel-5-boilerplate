@@ -29,6 +29,16 @@ return [
                 'unlink' => 'Unlink',
             ],
         ],
+        'news_management' =>[
+            'news' => [
+                'restore_user' => 'Khôi phục tin tức',
+                'delete_permanently' => 'Xóa tin tức',
+            ],
+            'category' => [
+                'restore_user' => 'Khôi phục danh mục',
+                'delete_permanently' => 'Xóa danh mục',
+            ]
+        ]
     ],
 
     'emails' => [
@@ -39,18 +49,18 @@ return [
     ],
 
     'general' => [
-        'cancel' => 'Cancel',
-        'continue' => 'Continue',
+        'cancel' => 'Hủy',
+        'continue' => 'Tiếp tục',
 
         'crud' => [
-            'create' => 'Create',
-            'delete' => 'Delete',
-            'edit'   => 'Edit',
-            'update' => 'Update',
-            'view'   => 'View',
+            'create' => 'Tạo',
+            'delete' => 'Xóa',
+            'edit'   => 'Sửa',
+            'update' => 'Cập nhật',
+            'view'   => 'Xem',
         ],
 
-        'save' => 'Save',
-        'view' => 'View',
+        'save' => 'Lưu',
+        'view' => 'Xem',
     ],
 ];

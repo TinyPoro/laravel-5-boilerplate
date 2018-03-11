@@ -46,10 +46,34 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
+        'backend' => [
+            'auth',
+            'password_expires',
+            'permission:view backend',
+        ],
+
         'admin' => [
             'auth',
             'password_expires',
             'permission:view backend',
+            'permission:manage_news',
+            'permission:manage_users',
+            'permission:manage_category',
+        ],
+
+        'admod' => [
+            'auth',
+            'password_expires',
+            'permission:view backend',
+            'permission:manage_news',
+            'permission:manage_category',
+        ],
+
+        'author' => [
+            'auth',
+            'password_expires',
+            'permission:view backend',
+            'permission:manage_category',
         ],
     ];
 

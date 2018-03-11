@@ -23,6 +23,14 @@ return [
                 'restore_user_confirm' => 'Restore this user to its original state?',
             ],
         ],
+        'news_management' => [
+            'news' => [
+                'no_deleted' => 'Không có tin tức nào bị xóa.',
+            ],
+            'category' => [
+                'no_deleted' => 'Không có danh mục nào bị xóa.',
+            ]
+        ],
 
         'dashboard' => [
             'title'   => 'Dashboard',

@@ -34,6 +34,22 @@ return [
             'updated'             => 'The user was successfully updated.',
             'updated_password'    => "The user's password was successfully updated.",
         ],
+
+        'news' => [
+            'updated'             => 'Tin tức được cập nhật thành công.',
+            'deleted'             => 'Tin tức được xóa thành công.',
+            'deleted_permanently' => 'Tin tức được xóa hoàn toàn.',
+            'restored'            => 'Tin tức được khôi phục.',
+        ],
+
+        'category' => [
+            'updated'             => 'Danh mục được cập nhật thành công.',
+            'deleted'             => 'Danh mục được xóa thành công.',
+            'deleted_permanently' => 'Danh mục được xóa hoàn toàn.',
+            'restored'            => 'Danh mục được khôi phục.',
+            'trash_parent'            => 'Danh mục cha đã bị xóa.',
+            'invalid_parent'            => 'Danh mục cha không hợp lệ.',
+        ],
     ],
 
     'frontend' => [

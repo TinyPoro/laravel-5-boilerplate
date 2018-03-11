@@ -42,6 +42,25 @@
                 </li>
             @endif
 
+            <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/auth/news*'), 'open') }}">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="icon-user"></i> {{ __('menus.backend.news_management.title') }}
+                </a>
+
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/news*')) }}" href="{{ route('admin.auth.news.index') }}">
+                            {{ __('labels.backend.news_management.news.management') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ active_class(Active::checkUriPattern('admin/auth/category*')) }}" href="{{ route('admin.auth.category.index') }}">
+                            {{ __('labels.backend.news_management.category.management') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="nav-item nav-dropdown {{ active_class(Active::checkUriPattern('admin/log-viewer*'), 'open') }}">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     <i class="icon-list"></i> {{ __('menus.backend.log-viewer.main') }}

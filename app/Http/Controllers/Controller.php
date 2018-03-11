@@ -41,11 +41,11 @@ class Controller extends BaseController
         return view('frontend.forum', ['news'=>$news, 'top_cate'=>$top_cate]);
     }
 
-    public function create(){
+    public function createNews(){
         return view('frontend.createNews');
     }
 
-    public function store(Request $request){
+    public function storeNews(Request $request){
         $user = Auth::user();
 
         $title = $request->get('title');

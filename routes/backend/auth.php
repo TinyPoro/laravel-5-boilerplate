@@ -9,12 +9,12 @@ Route::group([
     'namespace'  => 'Auth',
 ], function () {
     Route::group([
-        'middleware' => 'role:administrator',
+        'middleware' => 'backend',
     ], function () {
         /*
          * User Management
          */
-        Route::group(['namespace' => 'User'], function () {
+        Route::group(['namespace' => 'User', 'middleware' => 'admin'], function () {
 
             /*
              * User Status'
@@ -67,8 +67,40 @@ Route::group([
         /*
          * Role Management
          */
-        Route::group(['namespace' => 'Role'], function () {
+        Route::group(['namespace' => 'Role', 'middleware' => 'admin'], function () {
             Route::resource('role', 'RoleController', ['except' => ['show']]);
+        });
+
+        /*
+         * News Management
+         */
+        Route::group(['namespace' => 'News', 'middleware' => 'author'], function () {
+            Route::get('news/deleted', 'NewsController@getDeleted')->name('news.delete');
+            Route::resource('news', 'NewsController');
+
+            /*
+             * Deleted News
+             */
+            Route::group(['prefix' => 'news/{deletedNews}'], function () {
+                Route::get('restore', 'NewsController@restore')->name('news.restore');
+                Route::get('delete', 'NewsController@delete')->name('news.delete-permanently');
+            });
+        });
+
+        /*
+         * Category Management
+         */
+        Route::group(['namespace' => 'Category', 'middleware' => 'admod'], function () {
+            Route::get('category/deleted', 'CategoryController@getDeleted')->name('category.delete');
+            Route::resource('category', 'CategoryController');
+
+            /*
+             * Deleted Category
+             */
+            Route::group(['prefix' => 'category/{deletedCategory}'], function () {
+                Route::get('restore', 'CategoryController@restore')->name('category.restore');
+                Route::get('delete', 'CategoryController@delete')->name('category.delete-permanently');
+            });
         });
     });
 });

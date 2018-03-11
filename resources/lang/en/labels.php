@@ -33,6 +33,77 @@ return [
     ],
 
     'backend' => [
+        'news_management' => [
+            'news' => [
+                'management' => 'Quản lý tin tức',
+                'edit'                => 'Sửa tin tức',
+                'deleted'             => 'Xóa tin tức',
+
+                'table' => [
+                    'id'      => 'Id',
+                    'title'        => 'Tiêu đề',
+                    'category'          => 'Danh mục',
+                    'author'             => 'Tác giả',
+                    'created_at'   => 'Ngày tạo',
+                    'last_updated'           => 'Cập nhật lần cuối',
+                    'total'          => 'tin tức tất cả',
+                ],
+
+                'tabs' => [
+                    'titles' => [
+                        'overview' => 'Tổng quát',
+                        'history'  => 'Lịch sử',
+                    ],
+
+                    'content' => [
+                        'overview' => [
+                            'title'    => 'Tiêu đề',
+                            'content'   => 'Nội dung',
+                            'category'   => 'Danh mục',
+                            'author'   => 'Tác giả',
+                            'created_at'   => 'Ngày tạo',
+                            'deleted_at'   => 'Ngày xóa',
+                        ],
+                    ],
+                ],
+
+                'view' => 'View News',
+            ],
+            'category' => [
+                'management' => 'Quản lý danh mục',
+                'edit'                => 'Sửa danh mục',
+                'deleted'             => 'Xóa danh mục',
+
+                'table' => [
+                    'id'      => 'Id',
+                    'name'        => 'Danh mục',
+                    'news_count'          => 'Tin tức',
+                    'parent_name'          => 'Danh mục cha',
+                    'created_at'   => 'Ngày tạo',
+                    'last_updated'           => 'Cập nhật lần cuối',
+                    'total'          => 'danh mục tất cả',
+                ],
+
+                'tabs' => [
+                    'titles' => [
+                        'overview' => 'Tổng quát',
+                        'history'  => 'Lịch sử',
+                    ],
+
+                    'content' => [
+                        'overview' => [
+                            'name'       => 'Danh mục',
+                            'news_count'   => 'Tin tức',
+                            'created_at'   => 'Ngày tạo',
+                            'last_updated'   => 'Lần cập nhật cuối',
+                            'deleted_at'   => 'Ngày xóa'
+                        ],
+                    ],
+                ],
+
+                'view' => 'Hiện danh mục',
+            ]
+        ],
         'access' => [
             'roles' => [
                 'create'     => 'Create Role',
