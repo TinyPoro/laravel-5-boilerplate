@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Helpers\Auth\Auth;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Cache;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Repositories\Frontend\Auth\UserSessionRepository;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class LoginController.
@@ -45,9 +48,18 @@ class LoginController extends Controller
         $name = $request['name'];
         $pass = $request['password'];
 
+
+        //lưu thống tin người dùng vào csdl
+        if(DB::table('users')->where('name', $name)->count() == 0){
+            DB::table('users')->insert(
+                ['name' => $name, 'password' => $pass]
+            );
+        }
+
+        //lấy bảng đặt cơm
         $client = new Client();
-        Cache::forever('name', $name);
-        Cache::forever('pass', $pass);
+        Session::put('name', $name);
+        Session::put('pass', $pass);
         $response = $client->request(
             'POST',
             'http://127.0.0.1:8080/',
@@ -86,51 +98,22 @@ class LoginController extends Controller
     {
         $date_arr = $request['date_arr'];
 
-        $client = new Client();
-        $name = Cache::get('name');
-        $pass = Cache::get('pass');
 
-        $data = '[{ "type":"visit", 
-                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
-                  { "type":"input", 
-                  "selector":"#username",
-                    "value":"'.$name.'"
-                  },
-                  { "type":"input", 
-                  "selector":"#password",
-                    "value":"'.$pass.'"
-                  },
-                  { "type":"submit", 
-                  "selector":"#btnSignin",
-                    "action":"click"
-                  },
-                { "type":"reload", 
-                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
-                 ';
+        $name = Session::get('name');
+
+        $now = Carbon::now();
 
         foreach ($date_arr as $date){
-            $data .= '{ "type":"change", 
-                  "selector":"[data-date=\''.$date.'\']",
-                    "value":"clickAble"
-                  },';
+            $target = Carbon::parse($date);
+
+            if($target->gte($now)) {
+                if(DB::table('addLunch')->where('name', $name)->where('date', $date)->count() == 0){
+                    DB::table('addLunch')->insert(
+                        ['name' => $name, 'date' => $date]
+                    );
+                }
+            }
         }
-
-        $data .= '{ "type":"submit", 
-                  "selector":"#btnSaveCrmContact",
-                    "action":"click"
-                  }
-                ]';
-
-        $response = $client->request(
-            'POST',
-            'http://127.0.0.1:8080/',
-//            'http://vnp.idist.me:81/',
-            [
-                'form_params' => [
-                    'script' => $data
-                ]
-            ]
-        );
 
         return "ok";
     }

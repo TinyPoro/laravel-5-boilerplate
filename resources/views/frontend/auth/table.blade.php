@@ -54,7 +54,7 @@
 //            'http://vnp.idist.me:81/',
                 data: {date_arr:date_arr},
                 success: function(result){
-                    console.log(result);
+                    alert(result);
                 }
             });
         });
