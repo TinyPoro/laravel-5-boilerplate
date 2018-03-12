@@ -40,10 +40,13 @@ class addLunchDaily extends Command
      */
     public function handle()
     {
-        $now = date('Y-m-d');
+        $tomorrow = Carbon::now()->addDay(1);
+
+        $tomorrow_string = date_format($tomorrow, 'Y-m-d');
+
         $client = new Client();
 
-        DB::table('addLunch')->where('date', $now)->orderBy('id')
+        DB::table('addLunch')->where('date', $tomorrow_string)->orderBy('id')
             ->chunk(10, function($datas) use($client){
                foreach($datas as $data){
                    $name = $data->name;
