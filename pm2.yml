@@ -1,0 +1,11 @@
+apps:
+## DECOMPRESS
+  - script : /home/ssh_hocvt/spider/current/artisan
+    name     : 'addLunch'
+    interpreter : /usr/local/php712_fpm/bin/php
+    cwd : /home/ssh_hocvt/spider/current
+    exec_mode: fork
+    args : add:lunch
+    autorestart : true
+    restart_delay : 600000
+    log_date_format : YYYYMMDDHHmm
