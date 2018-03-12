@@ -38,24 +38,21 @@
                     <div class="form-group row">
                         {{ html()->label(__('validation.attributes.backend.news_management.news.content'))->class('col-md-2 form-control-label')->for('content') }}
 
-                        <div class="col-md-10">
-                            {{ html()->textarea('content')
-                                ->class('form-control')
-                                ->placeholder(__('validation.attributes.backend.news_management.news.content'))
-                                ->attribute('maxlength', 191)
-                                ->required() }}
-                        </div><!--col-->
+                        {{--<div class="col-md-10">--}}
+                            {{--{{ html()->textarea('content')--}}
+                                {{--->class('form-control')--}}
+                                {{--->placeholder(__('validation.attributes.backend.news_management.news.content'))--}}
+                                {{--->attribute('maxlength', 191)--}}
+                                {{--->required() }}--}}
+                        {{--</div><!--col-->--}}
+
+                        <div class="col-md-10" id="content">{{$news->content}}</div>
                     </div><!--form-group-->
 
                     <div class="form-group row">
                         {{ html()->label(__('validation.attributes.backend.news_management.news.category'))->class('col-md-2 form-control-label')->for('category') }}
 
                         <div class="col-md-10">
-                            {{--{{ html()->text(null, 'categories')--}}
-                                {{--->class('form-control')--}}
-                                {{--->placeholder(__('validation.attributes.backend.news_management.news.category'))--}}
-                                {{--->attribute('maxlength', 191)--}}
-                                {{--->required() }}--}}
                             <div id="cate-form">
                                 <span id="render">
                                     @foreach($news->categories as $category)
@@ -94,6 +91,9 @@
 
 @section('after-scripts')
     <script>
+        $(document).ready(function() {
+            $('#content').summernote();
+        });
 
         $('.delete-tag').click(function () {
             var deleted_input = $(this).parent()[0].innerText;
@@ -148,6 +148,5 @@
             category_arr.push($(this)[0].innerText);
         });
         getValue();
-
     </script>
 @endsection
