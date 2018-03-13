@@ -92,8 +92,9 @@ class LoginController extends Controller
 
         $tomorrow = Carbon::now()->addDay(1);
         $tomorrow_string = date_format($tomorrow, 'Y-m-d');
-        $ordered_day = DB::table('addLunch')->where('date', '>', $tomorrow_string)->get();
-$ordered_day = json_decode($ordered_day);
+        $ordered_day = DB::table('addLunch')->where('date', '>', $tomorrow_string)
+            ->where('name', $name)->get();
+        $ordered_day = json_decode($ordered_day);
         return view('frontend.auth.table', ['html' => $html, 'ordered_day' => $ordered_day])
             ->withSocialiteLinks((new Socialite)->getSocialLinks());
     }
