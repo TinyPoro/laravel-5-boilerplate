@@ -4,7 +4,6 @@
 
 @section('content')
     {!! $html !!}
-
     <button id="register"> Xác nhận </button>
     <style>
         .alert-success{
@@ -17,6 +16,13 @@
 
 @section('after-script')
     <script>
+        $( document ).ready(function() {
+            var ordered_day = [@foreach($ordered_day as $day)"{{ $day->date }}"@if(!$loop->last),@endif @endforeach];
+            ordered_day.forEach(function (value) {
+                $('[data-date="' +value +'"]').css("background-color", "yellow");
+            });
+        });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
