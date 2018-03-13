@@ -1,11 +1,11 @@
 apps:
 ## DECOMPRESS
-  - script : /home/ssh_hocvt/spider/current/artisan
+  - script : ./artisan
     name     : 'addLunch'
-    interpreter : /usr/local/php712_fpm/bin/php
-    cwd : /home/ssh_hocvt/spider/current
+    interpreter : 'C:\Program Files\PHP\v7.1\php.exe'
+    cwd : ./
     exec_mode: fork
     args : add:lunch
     autorestart : true
-    restart_delay : 600000
+    restart_delay : 86400000
     log_date_format : YYYYMMDDHHmm

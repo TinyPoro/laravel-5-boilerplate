@@ -48,13 +48,13 @@ class addLunchDaily extends Command
 
         DB::table('addLunch')->where('date', $tomorrow_string)->orderBy('id')
             ->chunk(10, function($datas) use($client){
-               foreach($datas as $data){
-                   $name = $data->name;
-                   $pass = DB::table('users')->where('name', $name)->first()->password;
-                   $date = $data->date;
-                   $date = '2018-03-13';
+                foreach($datas as $data){
+                    $name = $data->name;
+                    $pass = DB::table('users')->where('name', $name)->first()->password;
+                    $date = $data->date;
+                    echo $name;
 
-                   $data = '[{ "type":"visit",
+                    $data = '[{ "type":"visit",
                   "url":"https://erp.nhanh.vn/hrm/lunch/add"},
                   { "type":"input",
                   "selector":"#username",
@@ -70,7 +70,7 @@ class addLunchDaily extends Command
                   },
                 { "type":"reload",
                   "url":"https://erp.nhanh.vn/hrm/lunch/add"},
-                  { "type":"submit", 
+                  { "type":"submit",
                   "selector":"[data-date=\''.$date.'\']",
                     "action":"click"
                   },
@@ -81,17 +81,17 @@ class addLunchDaily extends Command
                 ]
                  ';
 
-                $response = $client->request(
-                    'POST',
-                    'http://127.0.0.1:8080/',
+                    $response = $client->request(
+                        'POST',
+                        'http://127.0.0.1:81/',
 //                    'http://vnp.idist.me:81/',
-                    [
-                        'form_params' => [
-                            'script' => $data
+                        [
+                            'form_params' => [
+                                'script' => $data
+                            ]
                         ]
-                    ]
-                );
-               }
+                    );
+                }
             });
     }
 }
