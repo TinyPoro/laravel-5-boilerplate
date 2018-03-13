@@ -18829,3 +18829,9 @@ hr.transparent {
 #cate-box input{
   border: none;
 }
+.not-active a{
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+}

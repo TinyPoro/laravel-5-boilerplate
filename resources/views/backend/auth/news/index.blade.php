@@ -34,7 +34,7 @@
             </div>
         </form>
 
-
+        <a href="{{route('admin.auth.news.delete')}}" class="btn btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top"></i>Các tin đã xóa</a>
 
         <div class="row mt-4">
             <div class="col">
@@ -45,6 +45,8 @@
                             <th>{{ __('labels.backend.news_management.news.table.id') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.title') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.category') }}</th>
+                            <th>{{ __('labels.backend.news_management.news.table.status') }}</th>
+                            <th>{{ __('labels.backend.news_management.news.table.look_mode') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.author') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.created_at') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.last_updated') }}</th>
@@ -53,7 +55,7 @@
                         </thead>
                         <tbody>
                         @foreach ($news as $new)
-                            <tr>
+                            <tr id="{{$new->id}}">
                                 <td>{{ $new->id }}</td>
                                 <td>{{ $new->title }}</td>
                                 <td>
@@ -61,10 +63,23 @@
                                         <p>{{ $category->name }}</p>
                                     @endforeach
                                 </td>
+                                <td>{{ $new->getStatusText() }}</td>
+                                <td>{{ $new->getModeText() }}</td>
                                 <td>{!! $new->user->first_name !!} {!!$new->user->last_name !!}</td>
                                 <td>{{ $new->created_at }}</td>
                                 <td>{{ $new->updated_at->diffForHumans() }}</td>
-                                <td>{!! $new->action_buttons !!}</td>
+
+                                @if($new->public())
+                                    <td>{!! $new->action_buttons !!}</td>
+                                @else
+                                    <td >
+                                        <span class="not-active">
+                                            {!! $new->action_buttons !!}
+                                        </span>
+                                        <span>@include('backend.auth.news.show.modal')</span>
+                                    </td>
+                                @endif
+
                             </tr>
                         @endforeach
                         </tbody>
@@ -87,4 +102,41 @@
         </div><!--row-->
     </div><!--card-body-->
 </div><!--card-->
+@endsection
+
+@section('after-scripts')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.not-active').click(function(){
+            alert("mở khóa đi đã bullshit!!");
+        });
+
+        $('.send').each(function () {
+            $(this).click(function () {
+                var password = $(this).parent().siblings('.modal-body').find('#password').val();
+                var id = $(this).parent().siblings('.modal-body').find('#id').val();
+
+                $.ajax({
+                    method: 'POST',
+                    url: "/check_pass",
+                    data: {password:password,
+                        id:id},
+                    success: function(result){
+                        if(result=="pass sai mịa rùi") alert(result);
+                        else {
+                            alert("ngon rồi. tự đóng box đi. bận quá chưa làm được:(")
+                            // $('#' + result).find('.not-active').siblings().remove();
+                            $('#' + result).find('.not-active').attr('class', '');
+                        }
+                    }
+                });
+            })
+        })
+
+    </script>
 @endsection

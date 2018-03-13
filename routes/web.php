@@ -36,4 +36,6 @@ Route::get('/forum', 'Controller@forum')->middleware('auth')->name('forum');
 Route::get('/create_news', 'Controller@createNews')->middleware('auth')->name('create_news');
 Route::post('/store_news', 'Controller@storeNews')->middleware('auth')->name('store_news');
 
+Route::post('/check_pass', 'Controller@check_pass')->middleware('auth')->name('check_pass');
+
 

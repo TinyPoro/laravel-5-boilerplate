@@ -164,6 +164,10 @@ return [
                     'title'       => 'Tiêu đề',
                     'content'   => 'Nội dung',
                     'category'    => 'Danh mục',
+                    'avatar'    => 'Ảnh đại diện',
+                    'password'    => 'Mật khẩu',
+                    'status'    => 'Trạng thái',
+                    'look_mode'    => 'Chế độ xem',
                 ],
                 'category' => [
                     'name' => 'Danh mục',

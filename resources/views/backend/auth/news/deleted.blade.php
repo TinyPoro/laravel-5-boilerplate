@@ -27,6 +27,8 @@
                             <th>{{ __('labels.backend.news_management.news.table.id') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.title') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.category') }}</th>
+                            <th>{{ __('labels.backend.news_management.news.table.status') }}</th>
+                            <th>{{ __('labels.backend.news_management.news.table.look_mode') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.author') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.created_at') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.last_updated') }}</th>
@@ -45,6 +47,8 @@
                                             <p>{{ $category->name }}</p>
                                         @endforeach
                                     </td>
+                                    <td>{{ $new->getStatusText() }}</td>
+                                    <td>{{ $new->getModeText() }}</td>
                                     <td>{!! $new->user->first_name !!} {!!$new->user->last_name !!}</td>
                                     <td>{{ $new->created_at }}</td>
                                     <td>{{ $new->updated_at->diffForHumans() }}</td>

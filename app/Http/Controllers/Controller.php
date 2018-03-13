@@ -50,12 +50,23 @@ class Controller extends BaseController
 
         $title = $request->get('title');
         $content = $request->get('content');
-        $categories = $request->get('category');
+        $categories = explode(',', $request->get('category'));
+        $categories = array_filter($categories);
+        $file = $request->file('image');
+        $status = $request->get('status');
+        $look_mode = $request->get('look_mode');
+        $password = $request->get('password');
+//        $post_mode = $request->get('post_mode');
 
         $news = new News();
         $news->user_id = $user->id;
         $news->title = $title;
         $news->content = $content;
+        $news->ava_path = $file->getClientOriginalName();
+        $news->status = $status;
+        $news->look_mode = $look_mode;
+        $news->password = $password;
+//        $news->post_mode = $post_mode;
         $news->save();
 
         foreach ($categories as $category){
@@ -69,6 +80,18 @@ class Controller extends BaseController
 
             $news->categories()->attach($cate->id);
         }
-        return "ok";
+
+
+
+        return route('/forum');
+    }
+
+    public function check_pass(Request $request){
+        $password = $request->get('password');
+        $id = $request->get('id');
+
+        $news = News::find($id);
+        if($news->password == $password) return $id;
+        else return "pass sai mịa rùi";
     }
 }

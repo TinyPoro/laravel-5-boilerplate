@@ -21,6 +21,8 @@
         {{ style(mix('css/frontend.css')) }}
         <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{url('css/custom.css')}}">
+        <link href="{{url('css/summernote.css')}}" rel="stylesheet">
+
         @stack('after-styles')
     </head>
     <body>
@@ -42,6 +44,8 @@
 {{--        <script src="{{url('js/bootstrap.min.js')}}"></script>--}}
         {{--<script src="{{url('js/moment.min.js')}}"></script>--}}
         @yield('after-scripts')
+        <script src="{{url('js/bootstrap.min.js')}}"></script>
+        <script src="{{url('js/summernote.min.js')}}"></script>
 
         @include('includes.partials.ga')
     </body>

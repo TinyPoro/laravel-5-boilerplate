@@ -40,6 +40,7 @@ return [
             'deleted'             => 'Tin tức được xóa thành công.',
             'deleted_permanently' => 'Tin tức được xóa hoàn toàn.',
             'restored'            => 'Tin tức được khôi phục.',
+            'publish'            => 'Tin tức đã được phát hành.',
         ],
 
         'category' => [

@@ -36,15 +36,20 @@
                     </div><!--form-group-->
 
                     <div class="form-group row">
+                        {{ html()->label(__('validation.attributes.backend.news_management.news.avatar'))->class('col-md-2 form-control-label')->for('title') }}
+
+                        <div class="col-md-10">
+                            {{ html()->text('ava_path')
+                                ->class('form-control')
+                                ->placeholder(__('validation.attributes.backend.news_management.news.avatar'))
+                                ->attribute('maxlength', 191)
+                                ->required() }}
+                        </div><!--col-->
+                    </div><!--form-group-->
+
+                    <div class="form-group row">
                         {{ html()->label(__('validation.attributes.backend.news_management.news.content'))->class('col-md-2 form-control-label')->for('content') }}
 
-                        {{--<div class="col-md-10">--}}
-                            {{--{{ html()->textarea('content')--}}
-                                {{--->class('form-control')--}}
-                                {{--->placeholder(__('validation.attributes.backend.news_management.news.content'))--}}
-                                {{--->attribute('maxlength', 191)--}}
-                                {{--->required() }}--}}
-                        {{--</div><!--col-->--}}
 
                         <div class="col-md-10" id="content">{{$news->content}}</div>
                     </div><!--form-group-->
@@ -66,6 +71,34 @@
                                     <input type="text" class="form-control" name="category" id="category-input">
                                 </div>
                             </div>
+                        </div><!--col-->
+                    </div><!--form-group-->
+
+                    <div class="form-group row">
+                        {{ html()->label(__('validation.attributes.backend.news_management.news.look_mode'))->class('col-md-2 form-control-label')->for('title') }}
+
+                        <div class="col-md-10">
+                            <select class="custom-select" name="look_mode" id="look_mode-input">
+                                @if($news->look_mode == 0)
+                                    <option value="1">Riêng tư</option>
+                                    <option selected value="0">Công khai</option>
+                                @else
+                                    <option selected value="1">Riêng tư</optionselected>
+                                    <option value="0">Công khai</option>
+                                @endif
+                            </select>
+                        </div><!--col-->
+                    </div><!--form-group-->
+
+                    <div class="form-group row">
+                        {{ html()->label(__('validation.attributes.backend.news_management.news.password'))->class('col-md-2 form-control-label')->for('title') }}
+
+                        <div class="col-md-10">
+                            {{ html()->text('password')
+                                ->class('form-control')
+                                ->placeholder(__('validation.attributes.backend.news_management.news.password'))
+                                ->attribute('maxlength', 191)
+                                ->required() }}
                         </div><!--col-->
                     </div><!--form-group-->
 

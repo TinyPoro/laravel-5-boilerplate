@@ -31,6 +31,8 @@
             </div>
         </form>
 
+        <a href="{{route('admin.auth.category.delete')}}" class="btn btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top"></i>Các danh mục đã xóa</a>
+
         <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">

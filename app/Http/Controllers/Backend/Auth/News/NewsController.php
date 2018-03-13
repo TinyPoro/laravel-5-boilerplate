@@ -90,10 +90,16 @@ class NewsController extends Controller
         $content = $request->get('content');
         $categories = explode(',',$request->get('list-cate'));
         $categories = array_filter($categories);
+        $ava = $request->get('ava_path');
+        $look_mode = $request->get('look_mode');
+        $password = $request->get('password');
 
         $news = News::find($id);
         $news->title = $title;
         $news->content = $content;
+        $news->ava_path = $ava;
+        $news->look_mode = $look_mode;
+        $news->password = $password;
         $news->save();
 
         $news->detachAll();
@@ -139,7 +145,7 @@ class NewsController extends Controller
     {
         News::where('id', $deletedNews)->forceDelete();
 
-        return redirect()->route('admin.auth.news.delete')->withFlashSuccess(__('alerts.backend.news.deleted_permanently'));
+        return redirect()->route('admin.auth.news.delete')->withFlashDanger(__('alerts.backend.news.deleted_permanently'));
     }
 
     /**
@@ -151,5 +157,13 @@ class NewsController extends Controller
         News::where('id', $deletedNews)->restore();
 
         return redirect()->route('admin.auth.news.index')->withFlashSuccess(__('alerts.backend.news.restored'));
+    }
+
+    public function publish($news_id){
+        $news = News::where('id', $news_id)->first();
+        $news->status = 0;
+        $news->save();
+
+        return redirect()->route('admin.auth.news.index')->withFlashSuccess(__('alerts.backend.news.publish'));
     }
 }

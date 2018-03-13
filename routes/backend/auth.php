@@ -83,6 +83,7 @@ Route::group([
              */
             Route::group(['prefix' => 'news/{deletedNews}'], function () {
                 Route::get('restore', 'NewsController@restore')->name('news.restore');
+                Route::get('publish', 'NewsController@publish')->name('news.publish');
                 Route::get('delete', 'NewsController@delete')->name('news.delete-permanently');
             });
         });

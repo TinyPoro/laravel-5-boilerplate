@@ -10,6 +10,36 @@ class News extends Model
 {
     use SoftDeletes;
 
+    static $draft_type = 1;
+    static $real_type = 0;
+
+    static $private_mode = 1;
+    static $public_mode = 0;
+
+    private $status_arr = [
+        '0' => 'xuất bản',
+        '1' => 'bản nháp',
+    ];
+
+    private $mode_arr = [
+        '0' => 'công khai',
+        '1' => 'cá nhân',
+    ];
+
+    public function getStatusText(){
+        return array_get($this->status_arr, $this->status);
+    }
+
+    public function getModeText(){
+        return array_get($this->mode_arr, $this->look_mode);
+    }
+
+    public function getPictureAttribute(){
+//        return url('public/img/'.$this->ava_path);
+        return "<img src='".public_path()."/img/".$this->ava_path."''>";
+    }
+
+
     public function categories(){
         return $this->belongsToMany('App\Category');
     }
@@ -69,6 +99,14 @@ class News extends Model
 				</div>';
         }
 
+        if(!$this->publish()) return '
+    	<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
+		  '.$this->publish_button.'
+		  '.$this->show_button.'
+		  '.$this->edit_button.'
+		  '.$this->delete_button.'
+		</div>';
+
         return '
     	<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
 		  '.$this->show_button.'
@@ -87,9 +125,35 @@ class News extends Model
         return ! is_null($this->{$this->getDeletedAtColumn()});
     }
 
+    public function getStatusColumn()
+    {
+        return defined('static::STATUS') ? static::STATUS : 'status';
+    }
+
+    public function publish()
+    {
+        return $this->{$this->getStatusColumn()} == self::$real_type;
+    }
+
+    public function getLookModeColumn()
+    {
+        return defined('static::LOOK_MODE') ? static::LOOK_MODE : 'look_mode';
+    }
+
+    public function public()
+    {
+        return $this->{$this->getLookModeColumn()} == self::$public_mode;
+    }
+
     public function detachAll(){
         foreach($this->categories as $category){
             $this->categories()->detach($category->id);
         }
     }
+
+    public function getPublishButtonAttribute()
+    {
+        return '<a href="'.route('admin.auth.news.publish', $this).'" class="btn btn-success"><i class="fa fa-external-link-square" data-toggle="tooltip" data-placement="top" title="'.__('buttons.general.crud.edit').'"></i></a>';
+    }
+
 }

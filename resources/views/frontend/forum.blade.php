@@ -37,37 +37,39 @@
                 <div class="col-lg-8 col-md-8">
                     @foreach($news as $new)
                         <!-- POST -->
-                            <div class="post">
-                                <div class="wrap-ut pull-left">
-                                    <div class="userinfo pull-left">
-                                        <div class="avatar">
-                                            <img src="{{url('img/avatar.jpg')}}" alt="">
-                                            <div class="status green">&nbsp;</div>
-                                        </div>
+                        @if($new->publish())
+                                <div class="post">
+                                    <div class="wrap-ut pull-left">
+                                        <div class="userinfo pull-left">
+                                            <div class="avatar">
+                                                <img src="{{url('img/avatar.jpg')}}" alt="">
+                                                <div class="status green">&nbsp;</div>
+                                            </div>
 
-                                        <div class="icons">
-                                            <img src="{{url('img/icon1.jpg')}}" alt=""><img src="{{url('img/icon4.jpg')}}" alt="">
+                                            <div class="icons">
+                                                <img src="{{url('img/icon1.jpg')}}" alt=""><img src="{{url('img/icon4.jpg')}}" alt="">
+                                            </div>
                                         </div>
+                                        <div class="posttext pull-left">
+                                            <h2><a href="02_topic.html">{{$new->title}}</a></h2>
+                                            <p>{{$new->content}}</p>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="posttext pull-left">
-                                        <h2><a href="02_topic.html">{{$new->title}}</a></h2>
-                                        <p>{{$new->content}}</p>
+                                    <div class="postinfo pull-left">
+                                        <div class="comments">
+                                            <div class="commentbg">
+                                                3
+                                                <div class="mark"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="views"><i class="fa fa-eye"></i> 15</div>
+                                        <div class="time"><i class="fa fa-clock-o"></i> {{$new->time}}</div>
                                     </div>
                                     <div class="clearfix"></div>
-                                </div>
-                                <div class="postinfo pull-left">
-                                    <div class="comments">
-                                        <div class="commentbg">
-                                            3
-                                            <div class="mark"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="views"><i class="fa fa-eye"></i> 15</div>
-                                    <div class="time"><i class="fa fa-clock-o"></i> {{$new->time}}</div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div><!-- POST -->
+                                </div><!-- POST -->
+                        @endif
                     @endforeach
 
                 </div>
