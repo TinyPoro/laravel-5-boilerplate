@@ -40,7 +40,9 @@ class addLunchDaily extends Command
      */
     public function handle()
     {
-        $tomorrow = Carbon::now()->addDay(1);
+        $now = Carbon::now()->addDay(1);
+        if($now->format('l') == 'Friday') $tomorrow = $now->addDay(3);
+        else $tomorrow = $now->addDay(1);
 
         $tomorrow_string = date_format($tomorrow, 'Y-m-d');
 
