@@ -12,11 +12,44 @@
         <h4 class="modal-title">Truy cập tin tức riêng tư</h4>
       </div>
       <div class="modal-body">
-          <label for="image">Nhập mật khẩu</label>
-          <input type="text" class="form-control" name="password" id="password">
+        <table class="table table-hover">
+          <tr>
+            <th>{{ __('labels.backend.news_management.news.tabs.content.overview.title') }}</th>
+            <td id="try_title"></td>
+          </tr>
+
+          <tr>
+            <th>{{ __('labels.backend.news_management.news.tabs.content.overview.image') }}</th>
+            <td id="try_image"></td>
+          </tr>
+
+          <tr>
+            <th>{{ __('labels.backend.news_management.news.tabs.content.overview.content') }}</th>
+            <td id="try_content"></td>
+          </tr>
+          <tr>
+            <th>{{ __('labels.backend.news_management.news.tabs.content.overview.status') }}</th>
+            <td id="try_status"></td>
+          </tr>
+
+          <tr>
+            <th>{{ __('labels.backend.news_management.news.tabs.content.overview.look_mode') }}</th>
+            <td id="try_look_mode"></td>
+          </tr>
+
+          <tr>
+            <th>{{ __('labels.backend.news_management.news.tabs.content.overview.author') }}</th>
+            <td>Admin</td>
+          </tr>
+
+          <tr>
+            <th>{{ __('labels.backend.news_management.news.tabs.content.overview.created_at') }}</th>
+            <td>3 giây trước</td>
+          </tr>
+        </table>
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-primary send">Gửi</button>
+
         <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
       </div>
     </div>

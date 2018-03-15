@@ -42,7 +42,8 @@ class Controller extends BaseController
     }
 
     public function createNews(){
-        return view('frontend.createNews');
+        $categories = Category::all();
+        return view('frontend.createNews', ['categories' => $categories]);
     }
 
     public function storeNews(Request $request){
@@ -93,5 +94,14 @@ class Controller extends BaseController
         $news = News::find($id);
         if($news->password == $password) return $id;
         else return "pass sai mịa rùi";
+    }
+
+    public function delete_news(Request $request){
+        $choosen_id = $request->get('choosen_id');
+
+        foreach ($choosen_id as $id){
+            News::find($id)->delete();
+        }
+        return $choosen_id;
     }
 }

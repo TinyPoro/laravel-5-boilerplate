@@ -171,6 +171,8 @@ return [
                 ],
                 'category' => [
                     'name' => 'Danh mục',
+                    'url' => 'Đường dẫn',
+                    'description' => 'Mô tả',
                     'parent_name' =>'Danh mục cha',
                 ]
             ]

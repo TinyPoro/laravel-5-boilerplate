@@ -48,6 +48,7 @@ return [
 
             'category' => [
                 'deleted'        => 'Các danh mục bị xóa',
+                'create'        => 'Tạo danh mục',
                 'view'     => 'Chi tiết danh mục',
                 'edit'       => 'Chỉnh sửa danh mục',
             ],

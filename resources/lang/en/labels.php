@@ -77,13 +77,17 @@ return [
             'category' => [
                 'management' => 'Quản lý danh mục',
                 'edit'                => 'Sửa danh mục',
+                'create'                => 'Tạo danh mục',
                 'deleted'             => 'Xóa danh mục',
 
                 'table' => [
                     'id'      => 'Id',
                     'name'        => 'Danh mục',
                     'news_count'          => 'Tin tức',
+                    'url'          => 'Đường dẫn',
                     'parent_name'          => 'Danh mục cha',
+                    'description'          => 'Mô tả',
+                    'url'          => 'Đường dẫn',
                     'created_at'   => 'Ngày tạo',
                     'last_updated'           => 'Cập nhật lần cuối',
                     'total'          => 'danh mục tất cả',
@@ -99,6 +103,8 @@ return [
                         'overview' => [
                             'name'       => 'Danh mục',
                             'news_count'   => 'Tin tức',
+                            'description'   => 'Mô tả',
+                            'url'   => 'Đường dẫn',
                             'created_at'   => 'Ngày tạo',
                             'last_updated'   => 'Lần cập nhật cuối',
                             'deleted_at'   => 'Ngày xóa'

@@ -21,6 +21,8 @@
     {{ style(mix('css/backend.css')) }}
     {{--<link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">--}}
     <link href="{{url('css/summernote.css')}}" rel="stylesheet">
+    <link href="{{url('css/daterangepicker.css')}}" rel="stylesheet">
+    <link href="{{url('css/select2.css')}}" rel="stylesheet">
 
     @stack('after-styles')
 </head>
@@ -56,8 +58,11 @@
     @stack('before-scripts')
     {!! script(mix('js/backend.js')) !!}
     <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{url('js/moment.min.js')}}"></script>
     <script src="{{url('js/bootstrap.min.js')}}"></script>
     <script src="{{url('js/summernote.min.js')}}"></script>
+    <script src="{{url('js/daterangepicker.js')}}"></script>
+    <script src="{{url('js/select2.js')}}"></script>
     @yield('after-scripts')
 </body>
 </html>

@@ -23,6 +23,15 @@ class NewsController extends Controller
 
         if($title = $request->get('title')) $news_builder->where('title', 'like', "%$title%");
 
+        if($status = $request->get('status')) $news_builder->where('status',  ($status-1));
+        if($look_mode = $request->get('look_mode')) $news_builder->where('look_mode',  ($look_mode-1));
+
+        if($date = $request->get('date')) {
+            $dates = explode(' - ', $date);
+            $news_builder->where('created_at', '>', $dates[0])
+            ->where('created_at', '<', $dates[1]);
+        };
+
         if($author = $request->get('author')) {
             $users = User::where('first_name', 'like', "%$author%")
                 ->orWhere('last_name', 'like', "%$author%")

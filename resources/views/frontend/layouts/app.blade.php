@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{url('css/custom.css')}}">
         <link href="{{url('css/summernote.css')}}" rel="stylesheet">
+        <link href="{{url('css/select2.css')}}" rel="stylesheet">
 
         @stack('after-styles')
     </head>
@@ -46,6 +47,7 @@
         @yield('after-scripts')
         <script src="{{url('js/bootstrap.min.js')}}"></script>
         <script src="{{url('js/summernote.min.js')}}"></script>
+        <script src="{{url('js/select2.js')}}"></script>
 
         @include('includes.partials.ga')
     </body>

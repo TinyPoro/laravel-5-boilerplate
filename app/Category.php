@@ -98,4 +98,32 @@ class Category extends Model
 
         return true;
     }
+
+    public function getToArrayAttribute(){
+        $parent_name = ($this->parent_id) ? self::find($this->parent_id)->name : '';
+
+        $result = [
+          'id' =>  $this->id,
+          'name' =>  $this->name,
+          'news_count' =>  $this->news_count,
+          'parent_name' =>  $parent_name,
+            'static_url' =>  $this->static_url,
+            'action_buttons' => $this->action_buttons,
+            'children' => []
+        ];
+
+        return $result;
+    }
+
+    public function getChildrenArrayAttribute(){
+        $result=[];
+
+        $children = self::where('parent_id', $this->id)->get();
+
+        foreach($children as $child){
+            $result[] = $child->to_array;
+        }
+
+        return $result;
+    }
 }

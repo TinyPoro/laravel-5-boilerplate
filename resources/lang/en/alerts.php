@@ -49,6 +49,7 @@ return [
             'deleted_permanently' => 'Danh mục được xóa hoàn toàn.',
             'restored'            => 'Danh mục được khôi phục.',
             'trash_parent'            => 'Danh mục cha đã bị xóa.',
+            'create'            => 'Danh mục mới đã được tạo.',
             'invalid_parent'            => 'Danh mục cha không hợp lệ.',
         ],
     ],

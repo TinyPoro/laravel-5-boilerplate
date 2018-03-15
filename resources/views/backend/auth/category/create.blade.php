@@ -7,14 +7,14 @@
 @endsection
 
 @section('content')
-{{ html()->modelForm($category, 'PATCH', route('admin.auth.category.update', $category->id))->class('form-horizontal')->open() }}
+{{ html()->form('POST', route('admin.auth.category.store'))->class('form-horizontal')->open() }}
     <div class="card">
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-5">
                     <h4 class="card-title mb-0">
                         {{ __('labels.backend.news_management.category.management') }}
-                        <small class="text-muted">{{ __('labels.backend.news_management.category.edit') }}</small>
+                        <small class="text-muted">{{ __('labels.backend.news_management.category.create') }}</small>
                     </h4>
                 </div><!--col-->
             </div><!--row-->
@@ -65,7 +65,7 @@
                             {{ html()->text('parent_name')
                                 ->class('form-control')
                                 ->placeholder(__('validation.attributes.backend.news_management.category.parent_name'))
-                                ->attribute('maxlength', 191)}}
+                                ->attribute('maxlength', 191) }}
                         </div><!--col-->
                     </div><!--form-group-->
 
@@ -99,7 +99,7 @@
                 </div><!--col-->
 
                 <div class="col text-right">
-                    {{ form_submit(__('buttons.general.crud.update')) }}
+                    {{ form_submit(__('buttons.general.crud.create')) }}
                 </div><!--row-->
             </div><!--row-->
         </div><!--card-footer-->

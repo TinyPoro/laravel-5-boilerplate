@@ -51,7 +51,8 @@
                         {{ html()->label(__('validation.attributes.backend.news_management.news.content'))->class('col-md-2 form-control-label')->for('content') }}
 
 
-                        <div class="col-md-10" id="content">{{$news->content}}</div>
+                        {{--<div class="col-md-10" id="content">{{$news->content}}</div>--}}
+                        <textarea class="col-md-10" id="content" id="content-input" name="content">{{$news->content}}</textarea>
                     </div><!--form-group-->
 
                     <div class="form-group row">
@@ -97,8 +98,7 @@
                             {{ html()->text('password')
                                 ->class('form-control')
                                 ->placeholder(__('validation.attributes.backend.news_management.news.password'))
-                                ->attribute('maxlength', 191)
-                                ->required() }}
+                                ->attribute('maxlength', 191) }}
                         </div><!--col-->
                     </div><!--form-group-->
 

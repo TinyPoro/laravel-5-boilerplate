@@ -20,13 +20,37 @@
         <form action="{{route('admin.auth.news.index')}}" method="get">
             <div class="form-row">
                 <div class="col">
+                    <select class="custom-select" name="action" id="action">
+                        <option selected value="0">Hành động</option>
+                        <option value="1">Xóa</option>
+                        <option value="2">Xuất bản</option>
+                    </select>
+                </div>
+                <div class="col">
                     <input type="text" name="title" class="form-control" placeholder="Tiêu đề">
                 </div>
                 <div class="col">
                     <input type="text" name="category" class="form-control" placeholder="Danh mục">
                 </div>
                 <div class="col">
+                    <select class="custom-select" name="status" id="look_mode-input">
+                        <option selected value="0">Trạng thái</option>
+                        <option value="2">Bản nháp</option>
+                        <option value="1">Xuất bản</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <select class="custom-select" name="look_mode" id="look_mode-input">
+                        <option selected value="0">Chế độ xem</option>
+                        <option value="2">Riêng tư</option>
+                        <option value="1">Công khai</option>
+                    </select>
+                </div>
+                <div class="col">
                     <input type="text" name="author" class="form-control" placeholder="Tác giả">
+                </div>
+                <div class="col">
+                    <input name="date" class="form-control" value="">
                 </div>
                 <div class="col">
                     <button class="btn btn-primary">Lọc</button>
@@ -42,6 +66,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th><input id="all" type="checkbox" ></th>
                             <th>{{ __('labels.backend.news_management.news.table.id') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.title') }}</th>
                             <th>{{ __('labels.backend.news_management.news.table.category') }}</th>
@@ -56,6 +81,7 @@
                         <tbody>
                         @foreach ($news as $new)
                             <tr id="{{$new->id}}">
+                                <td><input id="{{$new->id}}" type="checkbox" class="can-check"></td>
                                 <td>{{ $new->id }}</td>
                                 <td>{{ $new->title }}</td>
                                 <td>
@@ -136,6 +162,50 @@
                     }
                 });
             })
+        })
+
+        $('input[name="date"]').daterangepicker({
+            autoUpdateInput: false,
+            locale: {
+                cancelLabel: 'Clear'
+            }
+        });
+        
+        var choosen_id =[];
+
+        $('input[type="checkbox"]').click(function () {
+            var id = $(this).attr('id');
+
+            if(id == 'all') {
+                $('.can-check').each(function () {
+                    if(!$(this).is(":checked")) choosen_id.push($(this).attr('id'));
+                    $(this).prop('checked', true);
+                })
+                console.log(choosen_id);
+            }else{
+                if($(this).is(":checked")){
+                    choosen_id.push($(this).attr('id'));
+                    console.log(choosen_id);
+                }else{
+                    choosen_id.splice(choosen_id.indexOf($(this).attr('id')), 1);
+                    console.log(choosen_id);
+                }
+            }
+        })
+        
+        $('#action').click(function () {
+            if($(this).val() == 1) {
+                $.ajax({
+                    method: 'POST',
+                    url: "/delete_news",
+                    data: {choosen_id:choosen_id},
+                    success: function(result){
+                        result.forEach(function(e){
+                            $('tr#'+e).remove();
+                        })
+                    }
+                });
+            }
         })
 
     </script>

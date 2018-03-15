@@ -37,5 +37,6 @@ Route::get('/create_news', 'Controller@createNews')->middleware('auth')->name('c
 Route::post('/store_news', 'Controller@storeNews')->middleware('auth')->name('store_news');
 
 Route::post('/check_pass', 'Controller@check_pass')->middleware('auth')->name('check_pass');
+Route::post('/delete_news', 'Controller@delete_news')->middleware('auth')->name('delete_news');
 
 

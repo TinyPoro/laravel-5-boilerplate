@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
  */
 class CategoryController extends Controller
 {
+//    private $categories;
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -22,9 +24,30 @@ class CategoryController extends Controller
         if($name = $request->get('name')) $categories_builder->where('name', 'like', "%$name%");
 
         $categories = $categories_builder->get();
+//        $this->categories = $categories;
 
-        return view('backend.auth.category.index', ['categories'=>$categories]);
+        $datas = [];
+//        lấy những category gốc
+        foreach($categories as $category){
+            if(!$category->parent_id) $datas[] = $category->to_array;
+        }
+
+//        lấy category con
+        foreach($datas as $key => $category_data){
+            $cate = Category::find($category_data['id']);
+            $datas[$key]['children'] = $cate->children_array;
+        }
+
+
+        return view('backend.auth.category.index', ['datas'=>$datas]);
     }
+
+//    private function getCate($id){
+//        foreach($this->categories as $category){
+//            if($category->id == $id) return $category;
+//        }
+//        return null;
+//    }
 
     /**
      * @param $id
@@ -34,6 +57,25 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         return view('backend.auth.category.show', ['category'=>$category]);
+    }
+
+    public function create(){
+        return view('backend.auth.category.create');
+    }
+
+    public function store(Request $request){
+        $name = $request->get('name');
+        $static_url = $request->get('static_url');
+        $parent_name = $request->get('parent_name');
+        $description = $request->get('description');
+
+        $category = new Category();
+        $category->name = $name;
+        $category->description = $name;
+        if($static_url) $category->description = $static_url;
+        if($description) $category->description = $description;
+        $category->save();
+        return redirect()->route('admin.auth.category.index')->withFlashSuccess(__('alerts.backend.category.create'));
     }
 
     /**
@@ -54,6 +96,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id){
         $name = $request->get('name');
         $parent_name = $request->get('parent_name');
+        $static_url = $request->get('static_url');
+        $description = $request->get('description');
 
         $parent_cate = Category::where('name', $parent_name)->first();
 
@@ -61,9 +105,11 @@ class CategoryController extends Controller
             try{
                 $parent_cate = new Category();
                 $parent_cate->name = $parent_name;
+                $parent_cate->static_url = $static_url;
+                $parent_cate->description = $description;
                 $parent_cate->save();
             }catch (\Exception $e){
-                return redirect()->route('admin.auth.category.index')->withFlashSuccess(__('alerts.backend.category.trash_parent'));
+                return redirect()->route('admin.auth.category.index')->withFlashDanger(__('alerts.backend.category.trash_parent'));
             }
         }
 

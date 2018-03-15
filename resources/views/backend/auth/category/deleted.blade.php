@@ -27,6 +27,7 @@
                             <th>{{ __('labels.backend.news_management.category.table.id') }}</th>
                             <th>{{ __('labels.backend.news_management.category.table.name') }}</th>
                             <th>{{ __('labels.backend.news_management.category.table.news_count') }}</th>
+                            <th>{{ __('labels.backend.news_management.category.table.url') }}</th>
                             <th>{{ __('labels.general.actions') }}</th>
                         </tr>
                         </thead>
@@ -38,6 +39,7 @@
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->news_count }}</td>
+                                    <td><a href="{{$category->static_url}}">{{$category->name}}</a> </td>
                                     <td>{!! $category->action_buttons !!}</td>
                                 </tr>
                             @endforeach
