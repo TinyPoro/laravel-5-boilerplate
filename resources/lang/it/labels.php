@@ -95,7 +95,7 @@ return [
                     ],
                 ],
 
-                'view' => 'View User',
+                'view' => 'View Chef',
             ],
         ],
     ],

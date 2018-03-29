@@ -31,7 +31,7 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'first_name'        => 'Backend',
-            'last_name'         => 'User',
+            'last_name'         => 'Chef',
             'email'             => 'executive@executive.com',
             'password'          => Hash::make('1234'),
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -40,7 +40,7 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'first_name'        => 'Default',
-            'last_name'         => 'User',
+            'last_name'         => 'Chef',
             'email'             => 'user@user.com',
             'password'          => Hash::make('1234'),
             'confirmation_code' => md5(uniqid(mt_rand(), true)),

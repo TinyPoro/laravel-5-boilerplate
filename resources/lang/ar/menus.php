@@ -33,7 +33,7 @@ return [
                 'deleted'         => 'المستخدمون المحذفون',
                 'edit'            => 'تعديل مستخدم',
                 'main'            => 'المستخدمين',
-                'view'            => 'View User',
+                'view'            => 'View Chef',
             ],
         ],
 

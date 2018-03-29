@@ -2,9 +2,13 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AbstractFactory;
+use App\Console\Commands\Adapter;
 use App\Console\Commands\CreatePermission;
 use App\Console\Commands\CreateRole;
+use App\Console\Commands\FactoryMethod;
 use App\Console\Commands\FakeData;
+use App\Console\Commands\Observer;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -22,6 +26,10 @@ class Kernel extends ConsoleKernel
         CreateRole::class,
         FakeData::class,
         CreatePermission::class,
+        AbstractFactory::class,
+        FactoryMethod::class,
+        Adapter::class,
+        Observer::class,
     ];
 
     /**

@@ -12,7 +12,7 @@ class UserEventListener
      */
     public function onLoggedIn($event)
     {
-        \Log::info('User Logged In: '.$event->user->full_name);
+        \Log::info('Chef Logged In: '.$event->user->full_name);
     }
 
     /**
@@ -20,7 +20,7 @@ class UserEventListener
      */
     public function onLoggedOut($event)
     {
-        \Log::info('User Logged Out: '.$event->user->full_name);
+        \Log::info('Chef Logged Out: '.$event->user->full_name);
     }
 
     /**
@@ -28,7 +28,7 @@ class UserEventListener
      */
     public function onRegistered($event)
     {
-        \Log::info('User Registered: '.$event->user->full_name);
+        \Log::info('Chef Registered: '.$event->user->full_name);
     }
 
     /**
@@ -36,7 +36,7 @@ class UserEventListener
      */
     public function onProviderRegistered($event)
     {
-        \Log::info('User Provider Registered: '.$event->user->full_name);
+        \Log::info('Chef Provider Registered: '.$event->user->full_name);
     }
 
     /**
@@ -44,7 +44,7 @@ class UserEventListener
      */
     public function onConfirmed($event)
     {
-        \Log::info('User Confirmed: '.$event->user->full_name);
+        \Log::info('Chef Confirmed: '.$event->user->full_name);
     }
 
     /**

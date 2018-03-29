@@ -118,7 +118,7 @@ class UserRepository extends BaseRepository
             }
 
             if ($user) {
-                // User must have at least one role
+                // Chef must have at least one role
                 if (! count($data['roles'])) {
                     throw new GeneralException(__('exceptions.backend.access.users.role_needed_create'));
                 }

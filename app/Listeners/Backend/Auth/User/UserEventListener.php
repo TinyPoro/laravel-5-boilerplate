@@ -12,7 +12,7 @@ class UserEventListener
      */
     public function onCreated($event)
     {
-        \Log::info('User Created');
+        \Log::info('Chef Created');
     }
 
     /**
@@ -20,7 +20,7 @@ class UserEventListener
      */
     public function onUpdated($event)
     {
-        \Log::info('User Updated');
+        \Log::info('Chef Updated');
     }
 
     /**
@@ -28,7 +28,7 @@ class UserEventListener
      */
     public function onDeleted($event)
     {
-        \Log::info('User Deleted');
+        \Log::info('Chef Deleted');
     }
 
     /**
@@ -36,7 +36,7 @@ class UserEventListener
      */
     public function onConfirmed($event)
     {
-        \Log::info('User Confirmed');
+        \Log::info('Chef Confirmed');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserEventListener
      */
     public function onUnconfirmed($event)
     {
-        \Log::info('User Unconfirmed');
+        \Log::info('Chef Unconfirmed');
     }
 
     /**
@@ -52,7 +52,7 @@ class UserEventListener
      */
     public function onPasswordChanged($event)
     {
-        \Log::info('User Password Changed');
+        \Log::info('Chef Password Changed');
     }
 
     /**
@@ -60,7 +60,7 @@ class UserEventListener
      */
     public function onDeactivated($event)
     {
-        \Log::info('User Deactivated');
+        \Log::info('Chef Deactivated');
     }
 
     /**
@@ -68,7 +68,7 @@ class UserEventListener
      */
     public function onReactivated($event)
     {
-        \Log::info('User Reactivated');
+        \Log::info('Chef Reactivated');
     }
 
     /**
@@ -76,7 +76,7 @@ class UserEventListener
      */
     public function onSocialDeleted($event)
     {
-        \Log::info('User Social Deleted');
+        \Log::info('Chef Social Deleted');
     }
 
     /**
@@ -84,7 +84,7 @@ class UserEventListener
      */
     public function onPermanentlyDeleted($event)
     {
-        \Log::info('User Permanently Deleted');
+        \Log::info('Chef Permanently Deleted');
     }
 
     /**
@@ -92,7 +92,7 @@ class UserEventListener
      */
     public function onRestored($event)
     {
-        \Log::info('User Restored');
+        \Log::info('Chef Restored');
     }
 
     /**

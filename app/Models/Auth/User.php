@@ -14,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Auth\Traits\Relationship\UserRelationship;
 
 /**
- * Class User.
+ * Class Chef.
  */
 class User extends Authenticatable
 {

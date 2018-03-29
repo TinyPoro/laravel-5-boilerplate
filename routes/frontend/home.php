@@ -14,19 +14,19 @@ Route::post('contact/send', 'ContactController@send')->name('contact.send');
  * These routes can not be hit if the password is expired
  */
 Route::group(['middleware' => ['auth', 'password_expires']], function () {
-    Route::group(['namespace' => 'User', 'as' => 'user.'], function () {
+    Route::group(['namespace' => 'Chef', 'as' => 'user.'], function () {
         /*
-         * User Dashboard Specific
+         * Chef Dashboard Specific
          */
         Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
         /*
-         * User Account Specific
+         * Chef Account Specific
          */
         Route::get('account', 'AccountController@index')->name('account');
 
         /*
-         * User Profile Specific
+         * Chef Profile Specific
          */
         Route::patch('profile/update', 'ProfileController@update')->name('profile.update');
     });

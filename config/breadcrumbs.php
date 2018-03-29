@@ -28,7 +28,7 @@ return [
     | The file(s) where breadcrumbs are defined. e.g.
     |
     | - base_path('routes/breadcrumbs.php')
-    | - glob(base_path('breadcrumbs/*.php'))
+    | - glob(base_path('breadcrumbs/*Icescream.php'))
     |
     */
 

@@ -12,23 +12,23 @@ Route::group([
         'middleware' => 'backend',
     ], function () {
         /*
-         * User Management
+         * Chef Management
          */
-        Route::group(['namespace' => 'User', 'middleware' => 'admin'], function () {
+        Route::group(['namespace' => 'Chef', 'middleware' => 'admin'], function () {
 
             /*
-             * User Status'
+             * Chef Status'
              */
             Route::get('user/deactivated', 'UserStatusController@getDeactivated')->name('user.deactivated');
             Route::get('user/deleted', 'UserStatusController@getDeleted')->name('user.deleted');
 
             /*
-             * User CRUD
+             * Chef CRUD
              */
             Route::resource('user', 'UserController');
 
             /*
-             * Specific User
+             * Specific Chef
              */
             Route::group(['prefix' => 'user/{user}'], function () {
                 // Account
@@ -56,7 +56,7 @@ Route::group([
             });
 
             /*
-             * Deleted User
+             * Deleted Chef
              */
             Route::group(['prefix' => 'user/{deletedUser}'], function () {
                 Route::get('delete', 'UserStatusController@delete')->name('user.delete-permanently');

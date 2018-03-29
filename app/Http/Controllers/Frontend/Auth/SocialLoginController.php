@@ -84,7 +84,7 @@ class SocialLoginController extends Controller
             throw new GeneralException(__('exceptions.frontend.auth.confirmation.pending'));
         }
 
-        // User has been successfully created or already exists
+        // Chef has been successfully created or already exists
         auth()->login($user, true);
 
         // Set session variable so we know which provider user is logged in as, if ever needed

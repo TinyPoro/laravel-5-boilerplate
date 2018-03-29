@@ -93,14 +93,14 @@ class News extends Model
     public function getActionButtonsAttribute(){
         if ($this->trashed()) {
             return '
-				<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
+				<div class="btn-group btn-group-sm" role="group" aria-label="Chef Actions">
 				  '.$this->restore_button.'
 				  '.$this->delete_permanently_button.'
 				</div>';
         }
 
         if(!$this->publish()) return '
-    	<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
+    	<div class="btn-group btn-group-sm" role="group" aria-label="Chef Actions">
 		  '.$this->publish_button.'
 		  '.$this->show_button.'
 		  '.$this->edit_button.'
@@ -108,7 +108,7 @@ class News extends Model
 		</div>';
 
         return '
-    	<div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
+    	<div class="btn-group btn-group-sm" role="group" aria-label="Chef Actions">
 		  '.$this->show_button.'
 		  '.$this->edit_button.'
 		  '.$this->delete_button.'

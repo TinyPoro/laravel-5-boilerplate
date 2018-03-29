@@ -252,7 +252,7 @@ class UserRepository extends BaseRepository
      */
     public function findOrCreateProvider($data, $provider)
     {
-        // User email may not provided.
+        // Chef email may not provided.
         $user_email = $data->email ?: "{$data->id}@{$provider}.com";
 
         // Check to see if there is a user with this email first.

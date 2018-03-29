@@ -28,12 +28,12 @@ return [
             'users' => [
                 'all' => 'All Users',
                 'change-password' => 'Change Password',
-                'create' => 'Create User',
+                'create' => 'Create Chef',
                 'deactivated' => 'Deactivated Users',
                 'deleted' => 'Deleted Users',
-                'edit' => 'Edit User',
+                'edit' => 'Edit Chef',
                 'main' => 'Users',
-                'view' => 'View User',
+                'view' => 'View Chef',
             ],
         ],
 
