@@ -33,3 +33,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 });
 
 Route::post('lunch', ['as' => 'add.lunch', 'uses' => 'Frontend\Auth\LoginController@addLunch']);
+Route::get('nhung', ['as' => 'nhung.get', 'uses' => 'Frontend\Auth\LoginController@nhungGet']);
+Route::post('nhung_support', ['as' => 'nhung.post', 'uses' => 'Frontend\Auth\LoginController@nhungSupport']);
