@@ -40,8 +40,9 @@ class addLunchDaily extends Command
      */
     public function handle()
     {
-        $now = Carbon::now()->addDay(1);
+        $now = Carbon::now();
         if($now->format('l') == 'Friday') $tomorrow = $now->addDay(3);
+        else if($now->format('l') == 'Sunday') return;
         else $tomorrow = $now->addDay(1);
 
         $tomorrow_string = date_format($tomorrow, 'Y-m-d');
@@ -54,7 +55,9 @@ class addLunchDaily extends Command
                     $name = $data->name;
                     $pass = DB::table('users')->where('name', $name)->first()->password;
                     $date = $data->date;
-                    echo $name;
+                    dump($name);
+//                    echo $pass;
+//                    echo $date;
 
                     $data = '[{ "type":"visit",
                   "url":"https://erp.nhanh.vn/hrm/lunch/add"},

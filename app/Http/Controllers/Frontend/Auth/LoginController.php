@@ -238,4 +238,28 @@ class LoginController extends Controller
             return redirect()->route('frontend.auth.login');
         }
     }
+
+    public function nhungGet(){
+        return view('nhung');
+    }
+    public function nhungSupport(Request $request){
+        $url = $request->get('url');
+        $client = new Client();
+        $response = $client->request(
+            'POST',
+            'http://127.0.0.1:81/',
+            [
+                'form_params' => [
+                    'script' => '[{ "type":"visit",
+                                  "url":"'.$url.'"},
+                                  { "type":"check_exist",
+                                  "selector":".iUh30"
+                                  }
+                                ]'
+                ]
+            ]
+        );
+        $urls = $response->getBody()->getContents();
+        return json_decode($urls);
+    }
 }
