@@ -52,12 +52,10 @@ class addLunchDaily extends Command
         DB::table('addLunch')->where('date', $tomorrow_string)->orderBy('id')
             ->chunk(10, function($datas) use($client){
                 foreach($datas as $data){
+                    $id = $data->id;
                     $name = $data->name;
                     $pass = DB::table('users')->where('name', $name)->first()->password;
                     $date = $data->date;
-                    dump($name);
-//                    echo $pass;
-//                    echo $date;
 
                     $data = '[{ "type":"visit",
                   "url":"https://erp.nhanh.vn/hrm/lunch/add"},
@@ -88,14 +86,24 @@ class addLunchDaily extends Command
 
                     $response = $client->request(
                         'POST',
-                        'http://127.0.0.1:81/',
-//                    'http://vnp.idist.me:81/',
+                        'http://127.0.0.1:8080/',
                         [
                             'form_params' => [
                                 'script' => $data
                             ]
                         ]
                     );
+
+                    $res = $response->getBody()->getContents();
+
+                    if($res == 'ok') {
+                        $cur_status = DB::table('addLunch')->find($id)->status;
+                        if($cur_status == 0) $new_status = 1;
+                        else $new_status = 0;
+
+                        DB::table('addLunch')->where('id', $id)
+                            ->update(['status' => $new_status]);
+                    }
                 }
             });
     }
