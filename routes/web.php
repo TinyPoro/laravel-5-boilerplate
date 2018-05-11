@@ -36,3 +36,6 @@ Route::post('lunch', ['as' => 'add.lunch', 'uses' => 'Frontend\Auth\LoginControl
 
 Route::get('nhung', ['as' => 'nhung.get', 'uses' => 'Frontend\Auth\LoginController@nhungGet']);
 Route::post('nhung_support', ['as' => 'nhung.post', 'uses' => 'Frontend\Auth\LoginController@nhungSupport']);
+
+Route::get('test', ['as' => 'show', 'uses' => 'Controller@show']);
+Route::post('test', ['as' => 'run', 'uses' => 'Controller@run']);
