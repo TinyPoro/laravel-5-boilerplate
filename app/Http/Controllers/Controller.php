@@ -27,7 +27,7 @@ class Controller extends BaseController
         $return = [];
 
         $time_start = microtime(true);
-        $result = $this->normal($data, $search);
+        $result = $this->BruteForce($data, $search);
         $time_end = microtime(true);
 
         $return['normal'] = [
@@ -47,7 +47,30 @@ class Controller extends BaseController
         return $return;
     }
 
-    public function normal($data, $search){
+    public function BruteForce($data, $search){
+        $result = [];
+
+        $sigA = 0;    //data
+        $sigB = 0;    //search
+
+        $ALen = strlen($data);
+        $BLen = strlen($search);
+
+        for($j = 0; $j <= $ALen - $BLen; $j++){
+            $i = 0;
+
+            while($i < $BLen && $data[$j + $i] == $search[$i]){
+                $i++;
+            }
+
+            if($i == $BLen) $result[] = $j;
+        }
+
+
+        return $result;
+    }
+
+    public function NumberMatching($data, $search){
         $result = [];
 
         $sigA = 0;    //data
