@@ -50,9 +50,6 @@ class Controller extends BaseController
     public function BruteForce($data, $search){
         $result = [];
 
-        $sigA = 0;    //data
-        $sigB = 0;    //search
-
         $ALen = strlen($data);
         $BLen = strlen($search);
 
