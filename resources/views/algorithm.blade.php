@@ -15,6 +15,9 @@
             <br/>
             <button id="submit" class="btn btn-primary">Chạy code</button>
         </form>
+
+        <div class="result">
+        </div>
     </div>
 
 @endsection
@@ -32,23 +35,37 @@
         $('#submit').click(function(){
             var input = $('#input').val();
             var search = $('#search').val();
-            console.log(input);
+
             $.ajax({
                 method: 'POST',
                 url: "test",
                 data: {input:input, search:search},
                 success: function(result){
-                    console.log(result);
-                    // $('form').after("<div id='list_url'></div>");
-                    {{--$('input#keyword').prop('disabled', true);--}}
-                    {{--$('#submit').remove();--}}
-                    {{--data = "<ul class=\"list-group\">";--}}
-                    {{--result.forEach(function(article){--}}
-                        {{--data += "<li class=\"list-group-item\"><a href=\"{{route('articles_info')}}/" + article['id'] + "\">" + article['url'] + "</a></li>";--}}
-                    {{--});--}}
-                    {{--data += "</ul>";--}}
-                    {{--$('#list_url').html(data);--}}
-                    {{--$('#chart').show();--}}
+                    data = "";
+
+                    for (var key in result) {
+                        data += "<div><label><b>"+key+": </b></label>\n";
+
+                        for(var prop in result[key]){
+                            if(prop === 'time') {
+                                data += "<i>"+result[key][prop]+"</i>";
+                            }
+
+                            if(prop === 'data'){
+                                data += '<ul>';
+
+                                result[key][prop].forEach(function(value){
+                                    data += "<li>"+value+"</li>";
+                                });
+
+                                data += '</ul>';
+                            }
+                        }
+
+                        data += "</div>";
+                    }
+
+                    $('.result').html(data);
                 }
             });
         });
