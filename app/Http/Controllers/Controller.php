@@ -17,11 +17,28 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function show(){
-//        $lps = [];
-//        $this->ComputeLPSArray("ababaca", $lps);
-//        dd($this->KnuthMorrisPratt('bacbabababacabacaaab', 'ababaca', $lps));
-
+//        $f = $this->computeBack("ababaca");
+//        dd($this->KnuthMorrisPratt('bacbabababacabacaaab', 'ababaca', $f));
         return view('algorithm');
+    }
+
+    public function computeBack($search){
+        $i = 0;
+
+        $f[0] = 0;
+
+        $len = strlen($search);
+
+        for($j = 1; $j < $len - 1; $j++){
+            while($search[$j] != $search[$i] && $i > 0){
+                $i = $f[$i-1];
+            }
+
+            $i++;
+            $f[$j] = $i;
+        }
+
+        return $f;
     }
 
     public function run(Request $request){
@@ -39,11 +56,10 @@ class Controller extends BaseController
         ];
 
 
-        $lps = [];
-        $this->ComputeLPSArray($search, $lps);
+        $f = $this->computeBack($search);
 
         $time_start = microtime(true);
-        $result = $this->KnuthMorrisPratt($data, $search, $lps);
+        $result = $this->KnuthMorrisPratt($data, $search, $f);
         $time_end = microtime(true);
 
         $return['knuth_morris_pratt'] = [
@@ -90,7 +106,7 @@ class Controller extends BaseController
         return $result;
     }
 
-    public function KnuthMorrisPratt($data, $search, $lps){
+    public function KnuthMorrisPratt($data, $search, $f){
         $result = [];
 
         $ALen = strlen($data);
@@ -143,7 +159,7 @@ class Controller extends BaseController
                     $shift = 0;
                     $j++;
                 }else{
-                    $shift = ($i==0) ? 0 : $lps[$i-1];
+                    $shift = ($i==0) ? 0 : $f[$i-1];
                     $j = $j + $i - $shift;
                 }
             }
@@ -153,36 +169,36 @@ class Controller extends BaseController
         return $result;
     }
 
-    function ComputeLPSArray($pat, &$lps)
-    {
-        $m = strlen($pat);
-        $len = 0;
-        $i = 1;
-
-        $lps[0] = 0;
-
-        while ($i < $m)
-        {
-            if ($pat[$i] == $pat[$len])
-            {
-                $len++;
-                $lps[$i] = $len;
-                $i++;
-            }
-            else
-            {
-                if ($len != 0)
-                {
-                    $len = $lps[$len - 1];
-                }
-                else
-                {
-                    $lps[$i] = 0;
-                    $i++;
-                }
-            }
-        }
-    }
+//    function ComputeLPSArray($pat, &$lps)
+//    {
+//        $m = strlen($pat);
+//        $len = 0;
+//        $i = 1;
+//
+//        $lps[0] = 0;
+//
+//        while ($i < $m)
+//        {
+//            if ($pat[$i] == $pat[$len])
+//            {
+//                $len++;
+//                $lps[$i] = $len;
+//                $i++;
+//            }
+//            else
+//            {
+//                if ($len != 0)
+//                {
+//                    $len = $lps[$len - 1];
+//                }
+//                else
+//                {
+//                    $lps[$i] = 0;
+//                    $i++;
+//                }
+//            }
+//        }
+//    }
 
     public function NumberMatching($data, $search){
         $result = [];
