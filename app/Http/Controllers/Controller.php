@@ -17,6 +17,10 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function show(){
+//        $lps = [];
+//        $this->ComputeLPSArray("ababaca", $lps);
+//        dd($this->KnuthMorrisPratt('bacbabababacabacaaab', 'ababaca', $lps));
+
         return view('algorithm');
     }
 
@@ -29,18 +33,37 @@ class Controller extends BaseController
         $time_start = microtime(true);
         $result = $this->BruteForce($data, $search);
         $time_end = microtime(true);
+        $return['brute_force'] = [
+            'time' => ($time_end - $time_start)*1000000 . " ( μs)",
+            'data' => $result
+        ];
 
-        $return['normal'] = [
-            'time' => $time_end - $time_start,
+
+        $lps = [];
+        $this->ComputeLPSArray($search, $lps);
+
+        $time_start = microtime(true);
+        $result = $this->KnuthMorrisPratt($data, $search, $lps);
+        $time_end = microtime(true);
+
+        $return['knuth_morris_pratt'] = [
+            'time' => ($time_end - $time_start)*1000000 . " ( μs)",
+            'data' => $result
+        ];
+
+        $time_start = microtime(true);
+        $result = $this->NumberMatching($data, $search);
+        $time_end = microtime(true);
+        $return['number_matching'] = [
+            'time' => ($time_end - $time_start)*1000000 . " ( μs)",
             'data' => $result
         ];
 
         $time_start = microtime(true);
         $result = $this->RabinKarp($data, $search);
         $time_end = microtime(true);
-
         $return['rabin_karp'] = [
-            'time' => $time_end - $time_start,
+            'time' => ($time_end - $time_start)*1000000 . " ( μs)",
             'data' => $result
         ];
 
@@ -65,6 +88,100 @@ class Controller extends BaseController
 
 
         return $result;
+    }
+
+    public function KnuthMorrisPratt($data, $search, $lps){
+        $result = [];
+
+        $ALen = strlen($data);
+        $BLen = strlen($search);
+
+//        $i = 0;
+//        $j = 0;
+
+//        while ($i < $ALen)
+//        {
+//            if ($search[$j] == $data[$i])
+//            {
+//                $j++;
+//                $i++;
+//            }
+//
+//            if ($j == $BLen)
+//            {
+//                $result[] = $i - $j;
+//                $j = $lps[$j - 1];
+//            }
+//
+//            else if ($i < $ALen && $search[$j] != $data[$i])
+//            {
+//                if ($j != 0)
+//                    $j = $lps[$j - 1];
+//                else
+//                    $i = $i + 1;
+//            }
+//        }
+
+        $j = 0;
+        $shift = 0;
+
+        while($j <= $ALen - $BLen){
+            $i = $shift;
+
+            while($i < $BLen && $data[$j + $i] == $search[$i]){
+                $i++;
+            }
+
+            if($i == $BLen) {
+                $result[] = $j;
+
+                $shift = 0;
+                $j++;
+            }
+            else {
+                if($i == $shift){
+                    $shift = 0;
+                    $j++;
+                }else{
+                    $shift = ($i==0) ? 0 : $lps[$i-1];
+                    $j = $j + $i - $shift;
+                }
+            }
+
+        }
+
+        return $result;
+    }
+
+    function ComputeLPSArray($pat, &$lps)
+    {
+        $m = strlen($pat);
+        $len = 0;
+        $i = 1;
+
+        $lps[0] = 0;
+
+        while ($i < $m)
+        {
+            if ($pat[$i] == $pat[$len])
+            {
+                $len++;
+                $lps[$i] = $len;
+                $i++;
+            }
+            else
+            {
+                if ($len != 0)
+                {
+                    $len = $lps[$len - 1];
+                }
+                else
+                {
+                    $lps[$i] = 0;
+                    $i++;
+                }
+            }
+        }
     }
 
     public function NumberMatching($data, $search){
@@ -98,7 +215,7 @@ class Controller extends BaseController
     public function RabinKarp($data, $search){
         $result = [];
 
-        $q = 3;
+        $q = 9;
 
         $sigA = 0;    //data
         $sigB = 0;    //search
@@ -122,7 +239,7 @@ class Controller extends BaseController
 
             if($j == $ALen - $BLen) break;
 
-            $sigA = ((10 * ($sigA - ($alpha * $this->toNumber($data[$j])) % $q) % $q) % $q + $this->toNumber($data[$j+$BLen])) % $q;
+            $sigA = ((10 * ($sigA - $alpha * $this->toNumber($data[$j]) % $q) % $q) % $q + $this->toNumber($data[$j+$BLen])) % $q;
         }
 
 
