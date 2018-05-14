@@ -17,26 +17,47 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function show(){
-//        $f = $this->computeBack("ababaca");
-//        dd($this->KnuthMorrisPratt('bacbabababacabacaaab', 'ababaca', $f));
         return view('algorithm');
     }
 
     public function computeBack($search){
         $i = 0;
 
-        $f[0] = 0;
+        $j = $f[0] = -1;
 
-        $len = strlen($search);
+        $m = strlen($search);
 
-        for($j = 1; $j < $len - 1; $j++){
-            while($search[$j] != $search[$i] && $i > 0){
-                $i = $f[$i-1];
+        while($i < $m-1){
+            while($j > -1 && $search[$j] != $search[$i]){
+                $j = $f[$j];
+            }
+
+            $f[++$i] = ++$j;
+        }
+
+
+        return $f;
+    }
+
+    public function computeBack1($search){
+        $i = 0;
+
+        $j = $f[0] = -1;
+
+        $m = strlen($search);
+
+        while($i < $m-1){
+            while($j > -1 && $search[$j] != $search[$i]){
+                $j = $f[$j];
             }
 
             $i++;
-            $f[$j] = $i;
+            $j++;
+
+            if($search[$j] == $search[$i]) $f[$i] = $f[$j];
+            else $f[$i] = $j;
         }
+
 
         return $f;
     }
@@ -75,8 +96,10 @@ class Controller extends BaseController
             'data' => $result
         ];
 
+
+        $q = $this->makePrime(2, strlen($search)*strlen($search)*log(strlen($search)));
         $time_start = microtime(true);
-        $result = $this->RabinKarp($data, $search);
+        $result = $this->RabinKarp($data, $search, $q);
         $time_end = microtime(true);
         $return['rabin_karp'] = [
             'time' => ($time_end - $time_start)*1000000 . " ( μs)",
@@ -112,32 +135,6 @@ class Controller extends BaseController
         $ALen = strlen($data);
         $BLen = strlen($search);
 
-//        $i = 0;
-//        $j = 0;
-
-//        while ($i < $ALen)
-//        {
-//            if ($search[$j] == $data[$i])
-//            {
-//                $j++;
-//                $i++;
-//            }
-//
-//            if ($j == $BLen)
-//            {
-//                $result[] = $i - $j;
-//                $j = $lps[$j - 1];
-//            }
-//
-//            else if ($i < $ALen && $search[$j] != $data[$i])
-//            {
-//                if ($j != 0)
-//                    $j = $lps[$j - 1];
-//                else
-//                    $i = $i + 1;
-//            }
-//        }
-
         $j = 0;
         $shift = 0;
 
@@ -159,7 +156,7 @@ class Controller extends BaseController
                     $shift = 0;
                     $j++;
                 }else{
-                    $shift = ($i==0) ? 0 : $f[$i-1];
+                    $shift = $f[$i];
                     $j = $j + $i - $shift;
                 }
             }
@@ -169,36 +166,6 @@ class Controller extends BaseController
         return $result;
     }
 
-//    function ComputeLPSArray($pat, &$lps)
-//    {
-//        $m = strlen($pat);
-//        $len = 0;
-//        $i = 1;
-//
-//        $lps[0] = 0;
-//
-//        while ($i < $m)
-//        {
-//            if ($pat[$i] == $pat[$len])
-//            {
-//                $len++;
-//                $lps[$i] = $len;
-//                $i++;
-//            }
-//            else
-//            {
-//                if ($len != 0)
-//                {
-//                    $len = $lps[$len - 1];
-//                }
-//                else
-//                {
-//                    $lps[$i] = 0;
-//                    $i++;
-//                }
-//            }
-//        }
-//    }
 
     public function NumberMatching($data, $search){
         $result = [];
@@ -228,10 +195,8 @@ class Controller extends BaseController
         return $result;
     }
 
-    public function RabinKarp($data, $search){
+    public function RabinKarp($data, $search, $q){
         $result = [];
-
-        $q = 9;
 
         $sigA = 0;    //data
         $sigB = 0;    //search
@@ -239,32 +204,61 @@ class Controller extends BaseController
         $ALen = strlen($data);
         $BLen = strlen($search);
 
-        $alpha = pow(10, $BLen-1) % $q;
+        $q = 101;
+        $d = 10;
+        $d = 223;
+
+        $alpha = pow($d % $q, $BLen-1) ;
 
         for ($i = 0; $i < $BLen; $i++) {
-            $sigA = (($sigA * 10) % $q + $this->toNumber($data[$i])) % $q;
-            $sigB = (($sigB * 10) % $q + $this->toNumber($search[$i])) % $q;
+            $sigA = (($sigA * $d) % $q + $this->toNumber($data[$i])) % $q;
+            $sigB = (($sigB * $d) % $q + $this->toNumber($search[$i])) % $q;
         }
+
+        dump("Root: ". pow($d, $BLen-1));
 
         for($j = 0; $j <= $ALen - $BLen; $j++){
             if($sigA == $sigB) {
                 $data_string = substr($data, $j, $BLen);
-
                 if($data_string === $search) $result[] = $j;
             }
 
             if($j == $ALen - $BLen) break;
 
-            $sigA = ((10 * ($sigA - $alpha * $this->toNumber($data[$j]) % $q) % $q) % $q + $this->toNumber($data[$j+$BLen])) % $q;
+            $sigA = (($d * ($sigA - ($alpha * $this->toNumber($data[$j])) % $q) % $q) % $q + $this->toNumber($data[$j+$BLen])) % $q;
         }
 
 
         return $result;
     }
 
+    public function makePrime($min, $max){
+        do{
+            $prime = rand($min, $max);
+        }while(!$this->checkPrime($prime));
+
+        return $prime;
+    }
+
+    public function checkPrime($number){
+        if($number % 2 == 0){
+            return false;
+        }else{
+            $i = 3;
+
+            while($i <= sqrt($number)){
+                if($number % $i == 0) return false;
+
+                $i += 2;
+            }
+        }
+
+        return true;
+    }
+
     public function toNumber($char){
         if($char){
-            return ord($char)-48;
+            return ord($char)-32;
         }
 
         return 0;
