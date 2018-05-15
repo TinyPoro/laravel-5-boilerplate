@@ -1,0 +1,10 @@
+{
+    "name": "tinyporo/algorithm",
+    "authors": [
+        {
+            "name": "tinyporo",
+            "email": "ngophuongtuan@gmail.com"
+        }
+    ],
+    "require": {}
+}

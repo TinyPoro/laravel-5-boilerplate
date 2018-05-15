@@ -23,7 +23,7 @@ return [
      | You can disable this, so the debugbar stores data in headers/session,
      | but this can cause problems with large data collectors.
      | By default, file storage (in the storage folder) is used. Redis and PDO
-     | can also be used. For PDO, run the package migrations first.
+     | can also be used. For PDO, run the packages migrations first.
      |
      */
     'storage' => [
