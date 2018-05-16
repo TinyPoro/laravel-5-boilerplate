@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Poro\Algorithm\BruteForce;
-use Poro\Algorithm\MorrisPratt;
-use Poro\Algorithm\NumberMatching;
-use Poro\Algorithm\RabinKarp;
+use Poro\Algorithm\StringSearching\BruteForce;
+use Poro\Algorithm\StringSearching\MorrisPratt;
+use Poro\Algorithm\StringSearching\NumberMatching;
+use Poro\Algorithm\StringSearching\RabinKarp;
 
 
 /**
@@ -31,8 +31,8 @@ class Controller extends BaseController
 
         $return = [];
 
-        $brute_force = new BruteForce($data, $search);
-        $brute_force->run();
+        $brute_force = new BruteForce($data);
+        $brute_force->run($search);
 
         $return['brute_force'] = [
             'time' => $brute_force->getTime() . " ( μs)",
@@ -40,23 +40,23 @@ class Controller extends BaseController
         ];
 
 
-        $morris_pratt = new MorrisPratt($data, $search);
-        $morris_pratt->run(MorrisPratt::MORRIS_PRATT);
+        $morris_pratt = new MorrisPratt($data);
+        $morris_pratt->run($search, MorrisPratt::MORRIS_PRATT);
 
         $return['morris_pratt'] = [
             'time' => $morris_pratt->getTime() . " ( μs)",
             'data' => $morris_pratt->getResult()
         ];
 
-        $morris_pratt->run(MorrisPratt::KNUTH_MORRIS_PRATT);
+        $morris_pratt->run($search, MorrisPratt::KNUTH_MORRIS_PRATT);
 
         $return['knuth_morris_pratt'] = [
             'time' => $morris_pratt->getTime() . " ( μs)",
             'data' => $morris_pratt->getResult()
         ];
 
-        $number_matching = new NumberMatching($data, $search);
-        $number_matching->run();
+        $number_matching = new NumberMatching($data);
+        $number_matching->run($search);
 
         $return['number_matching'] = [
             'time' => $number_matching->getTime() . " ( μs)",
@@ -64,8 +64,8 @@ class Controller extends BaseController
         ];
 
 
-        $rabin_karp = new RabinKarp($data, $search);
-        $rabin_karp->run();
+        $rabin_karp = new RabinKarp($data);
+        $rabin_karp->run($search);
 
         $return['rabin_karp'] = [
             'time' => $rabin_karp->getTime() . " ( μs)",
