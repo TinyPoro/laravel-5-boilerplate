@@ -14,6 +14,7 @@
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "^6.3",
         "hieu-le/active": "^3.5",
+        "huyit/handle_string": "^1.0",
         "laravel/framework": "5.6.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",

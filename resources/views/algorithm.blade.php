@@ -51,6 +51,10 @@
                                 data += "<i>"+result[key][prop]+"</i>";
                             }
 
+                            if(prop === 'html') {
+                                data += "<div style='font-size: 35px'>"+result[key][prop]+"</div>";
+                            }
+
                             if(prop === 'data'){
                                 data += '<ul>';
 

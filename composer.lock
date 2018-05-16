@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "12a8f3579167f8f64f5a5c347f3fb82a",
+    "content-hash": "3a5a42b3e8115b8779e9cd3d06fa622c",
     "packages": [
         {
             "name": "appstract/laravel-blade-directives",
@@ -962,6 +962,39 @@
                 "routing"
             ],
             "time": "2017-09-07T02:36:51+00:00"
+        },
+        {
+            "name": "huyit/handle_string",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/huynhan147/Handle_String.git",
+                "reference": "f80f03f4463d76fe37eddf460caa934f48b788f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/huynhan147/Handle_String/zipball/f80f03f4463d76fe37eddf460caa934f48b788f3",
+                "reference": "f80f03f4463d76fe37eddf460caa934f48b788f3",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Handle_String\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "huynhan147",
+                    "email": "huyitptit2015@gmail.com"
+                }
+            ],
+            "description": "Handle String",
+            "time": "2018-05-16T07:12:59+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
