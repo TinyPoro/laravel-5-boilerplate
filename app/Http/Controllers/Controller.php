@@ -22,9 +22,6 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function show(){
-//        $time_start = microtime(true);
-//
-//        dump((microtime(true) - $time_start) * 1000000);
         return view('algorithm');
     }
 
