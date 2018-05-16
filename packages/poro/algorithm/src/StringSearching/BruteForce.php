@@ -6,22 +6,22 @@
  * Time: 08:47
  */
 
-namespace Poro\Algorithm;
+namespace Poro\Algorithm\StringSearching;
 
 class BruteForce extends AlgorithmAbstract
 {
-    public function run(){
+    public function run($search){
         $time_start = microtime(true);
 
         $result = [];
 
         $ALen = strlen($this->input);
-        $BLen = strlen($this->search);
+        $BLen = strlen($search);
 
         for($j = 0; $j <= $ALen - $BLen; $j++){
             $i = 0;
 
-            while($i < $BLen && $this->input[$j + $i] == $this->search[$i]){
+            while($i < $BLen && $this->input[$j + $i] == $search[$i]){
                 $i++;
             }
 

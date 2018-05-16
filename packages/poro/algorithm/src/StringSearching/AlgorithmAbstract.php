@@ -6,20 +6,18 @@
  * Time: 09:14
  */
 
-namespace Poro\Algorithm;
+namespace Poro\Algorithm\StringSearching;
 
 
 abstract class AlgorithmAbstract implements AlgorithmInterface
 {
     protected $input;
-    protected $search;
 
     private $result;
     private $time;
 
-    public function __construct($input, $search){
+    public function __construct($input){
         $this->input = $input;
-        $this->search = $search;
     }
 
     public function setResult($result){

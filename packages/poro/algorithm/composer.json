@@ -6,5 +6,8 @@
             "email": "ngophuongtuan@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {"Poro\\Algorithm\\": "src"}
+    }
 }

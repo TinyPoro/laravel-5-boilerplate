@@ -6,12 +6,12 @@
  * Time: 10:05
  */
 
-namespace Poro\Algorithm;
+namespace Poro\Algorithm\StringSearching;
 
 
 class NumberMatching extends AlgorithmAbstract
 {
-    public function run(){
+    public function run($search){
         $time_start = microtime(true);
 
         $result = [];
@@ -20,7 +20,7 @@ class NumberMatching extends AlgorithmAbstract
         $sigB = 0;    //search
 
         $ALen = strlen($this->input);
-        $BLen = strlen($this->search);
+        $BLen = strlen($search);
 
         $d = 223;
 
@@ -28,7 +28,7 @@ class NumberMatching extends AlgorithmAbstract
 
         for ($i = 0; $i < $BLen; $i++) {
             $sigA = $sigA * $d + $this->toNumber($this->input[$i]);
-            $sigB = $sigB * $d + $this->toNumber($this->search[$i]);
+            $sigB = $sigB * $d + $this->toNumber($search[$i]);
         }
 
         for($j = 0; $j <= $ALen - $BLen; $j++){

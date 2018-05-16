@@ -6,7 +6,7 @@
  * Time: 09:41
  */
 
-namespace Poro\Algorithm;
+namespace Poro\Algorithm\StringSearching;
 
 
 class MorrisPratt extends AlgorithmAbstract
@@ -16,15 +16,15 @@ class MorrisPratt extends AlgorithmAbstract
 
     private $f;
 
-    private function preRun(){
+    private function preRun($search){
         $i = 0;
 
         $j = $f[0] = -1;
 
-        $m = strlen($this->search);
+        $m = strlen($search);
 
         while($i < $m-1){
-            while($j > -1 && $this->search[$j] != $this->search[$i]){
+            while($j > -1 && $search[$j] != $search[$i]){
                 $j = $f[$j];
             }
 
@@ -34,22 +34,22 @@ class MorrisPratt extends AlgorithmAbstract
         $this->f = $f;
     }
 
-    private function betterPreRun(){
+    private function betterPreRun($search){
         $i = 0;
 
         $j = $f[0] = -1;
 
-        $m = strlen($this->search);
+        $m = strlen($search);
 
         while($i < $m-1){
-            while($j > -1 && $this->search[$j] != $this->search[$i]){
+            while($j > -1 && $search[$j] != $search[$i]){
                 $j = $f[$j];
             }
 
             $i++;
             $j++;
 
-            if($this->search[$j] == $this->search[$i]) $f[$i] = $f[$j];
+            if($search[$j] == $search[$i]) $f[$i] = $f[$j];
             else $f[$i] = $j;
         }
 
@@ -57,16 +57,16 @@ class MorrisPratt extends AlgorithmAbstract
     }
 
     //mode = 0 :knuth-morris-pratt, mode = 1: morris=pratt
-    public function run($mode = 0){
-        if($mode == self::KNUTH_MORRIS_PRATT) $this->betterPreRun();
-        else $this->preRun();
+    public function run($search, $mode = 0){
+        if($mode == self::KNUTH_MORRIS_PRATT) $this->betterPreRun($search);
+        else $this->preRun($search);
 
         $time_start = microtime(true);
 
         $result = [];
 
         $ALen = strlen($this->input);
-        $BLen = strlen($this->search);
+        $BLen = strlen($search);
 
         $j = 0;
         $shift = 0;
@@ -74,7 +74,7 @@ class MorrisPratt extends AlgorithmAbstract
         while($j <= $ALen - $BLen){
             $i = $shift;
 
-            while($i < $BLen && $this->input[$j + $i] == $this->search[$i]){
+            while($i < $BLen && $this->input[$j + $i] == $search[$i]){
                 $i++;
             }
 

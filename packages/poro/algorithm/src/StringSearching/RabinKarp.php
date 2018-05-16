@@ -6,12 +6,12 @@
  * Time: 10:09
  */
 
-namespace Poro\Algorithm;
+namespace Poro\Algorithm\StringSearching;
 
 
 class RabinKarp extends AlgorithmAbstract
 {
-    public function run(){
+    public function run($search){
         $time_start = microtime(true);
 
         $result = [];
@@ -20,7 +20,7 @@ class RabinKarp extends AlgorithmAbstract
         $sigB = 0;    //search
 
         $ALen = strlen($this->input);
-        $BLen = strlen($this->search);
+        $BLen = strlen($search);
 
         $q = 101;
         $d = 10;
@@ -30,13 +30,13 @@ class RabinKarp extends AlgorithmAbstract
 
         for ($i = 0; $i < $BLen; $i++) {
             $sigA = (($sigA * $d) % $q + $this->toNumber($this->input[$i])) % $q;
-            $sigB = (($sigB * $d) % $q + $this->toNumber($this->search[$i])) % $q;
+            $sigB = (($sigB * $d) % $q + $this->toNumber($search[$i])) % $q;
         }
 
         for($j = 0; $j <= $ALen - $BLen; $j++){
             if($sigA == $sigB) {
-//                $data_string = substr($this->input, $j, $BLen);
-                 $result[] = $j;
+                $data_string = substr($this->input, $j, $BLen);
+                if($data_string == $search) $result[] = $j;
             }
 
             if($j == $ALen - $BLen) break;
