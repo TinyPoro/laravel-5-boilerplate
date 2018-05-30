@@ -262,4 +262,29 @@ class LoginController extends Controller
         $urls = $response->getBody()->getContents();
         return json_decode($urls);
     }
+
+    public function check(Request $request)
+    {
+        $url = 'https://www.google.com.vn/search?q=info:'.$request['url'];
+
+        //lấy bảng đặt cơm
+        $client = new Client();
+
+        $response = $client->request(
+            'POST',
+            'http://127.0.0.1:8080/',
+            [
+                'form_params' => [
+                    'script' => '[{ "type":"visit", 
+                                  "url":"'.$url.'"},
+                                  { "type":"result"}
+                                ]'
+                ]
+            ]
+        );
+
+        $html = $response->getBody()->getContents();
+
+        return $html;
+    }
 }
