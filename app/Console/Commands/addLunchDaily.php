@@ -39,7 +39,7 @@ class addLunchDaily extends Command
      * @return mixed
      */
     public function handle()
-    {
+    {   date_default_timezone_set("Asia/Bangkok");
         $now = Carbon::now();
         if($now->format('l') == 'Friday') $tomorrow = $now->addDay(3);
         else if($now->format('l') == 'Sunday') return;
@@ -86,7 +86,7 @@ class addLunchDaily extends Command
 
                     $response = $client->request(
                         'POST',
-                        'http://127.0.0.1:8080/',
+                        'http://127.0.0.1:81/',
                         [
                             'form_params' => [
                                 'script' => $data

@@ -30,7 +30,7 @@ class LunchError extends Mailable
      *
      * @return void
      */
-    public function __construct($name, $date)
+    public function __construct($date, $name = null)
     {
         $this->name = $name;
         $this->date = $date;
@@ -43,7 +43,9 @@ class LunchError extends Mailable
      */
     public function build()
     {
-        return $this->from('ngophuongtuan@gmail.com')
+        if($this->name == null) return $this->from('ngophuongtuan@gmail.com')
+            ->view('Email.succes');
+        else return $this->from('ngophuongtuan@gmail.com')
             ->view('Email.lunch');
     }
 }

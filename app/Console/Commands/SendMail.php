@@ -45,25 +45,36 @@ class SendMail extends Command
         if($now->format('l') == 'Friday') $tomorrow = $now->addDay(3);
         else if($now->format('l') == 'Sunday') return;
         else $tomorrow = $now->addDay(1);
-        $tomorrow = Carbon::now();
+
         $tomorrow_string = date_format($tomorrow, 'Y-m-d');
-        DB::table('addLunch')->where('date', $tomorrow_string)
-            ->where('status', 0)->orderBy('id')
-            ->chunk(10, function($datas){
+
+        $builder = DB::table('addLunch')->where('date', $tomorrow_string)
+            ->where('status', 0)->orderBy('id');
+
+        if($builder->count() == 0){
+            $mail = new LunchError($tomorrow_string);
+            Mail::to('ngophuongtuan@gmail.com')->queue($mail);
+            Mail::to('huyitptit2015@gmail.com')->queue($mail);
+        }
+        else{
+            $builder->chunk(10, function($datas){
                 foreach($datas as $data){
                     $name = $data->name;
                     $date = $data->date;
                     $email = DB::table('users')->where('name', $name)->first()->email;
-                    dump($name, $date, $email);
 
-                    try{
-                        Mail::to($email)->queue(new LunchError($name, $date));
-                    }catch (\Exception $e){
-                        dump($e->getMessage());
+                    if($email != NULL){
+                        try{
+                            $mail = new LunchError($date, $name);
+                            Mail::to('ngophuongtuan@gmail.com')->queue($mail);
+                            Mail::to($email)->queue($mail);
+                        }catch (\Exception $e){
+                            dump($e->getMessage());
+                        }
                     }
 
-                    dump("xong");
                 }
             });
+        }
     }
 }
