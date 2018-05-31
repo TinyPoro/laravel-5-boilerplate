@@ -272,7 +272,7 @@ class LoginController extends Controller
 
         $response = $client->request(
             'POST',
-            'http://127.0.0.1:8080/',
+            'http://127.0.0.1:81/',
             [
                 'form_params' => [
                     'script' => '[{ "type":"visit", 
@@ -285,6 +285,6 @@ class LoginController extends Controller
 
         $html = $response->getBody()->getContents();
 
-        return $html;
+        return response()->json($html);
     }
 }
