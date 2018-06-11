@@ -8,6 +8,6 @@
     ],
     "require": {},
     "autoload": {
-        "psr-4": {"Poro\\Algorithm\\": "src"}
+        "psr-4": {"Poro\\Image_Checker\\": "src"}
     }
 }

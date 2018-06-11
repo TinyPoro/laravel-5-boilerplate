@@ -38,7 +38,8 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "Poro\\Algorithm\\": "packages/poro/algorithm/src"
+            "Poro\\Algorithm\\": "packages/poro/algorithm/src",
+            "Poro\\Image_Checker\\": "packages/poro/image_checker/src"
         },
         "files": [
             "app/helpers.php"
