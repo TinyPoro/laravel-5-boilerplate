@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a5a42b3e8115b8779e9cd3d06fa622c",
+    "content-hash": "e7c79afd4e6f2293d0a6b131e0563427",
     "packages": [
         {
             "name": "appstract/laravel-blade-directives",
@@ -3109,6 +3109,47 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "tinyporo/image_checker",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TinyPoro/ImageChecker.git",
+                "reference": "ae65fb3537b0adcec20feaf2d79099a5a5f982f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TinyPoro/ImageChecker/zipball/ae65fb3537b0adcec20feaf2d79099a5a5f982f1",
+                "reference": "ae65fb3537b0adcec20feaf2d79099a5a5f982f1",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "psr-4": {
+                    "Poro\\Algorithm\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tinyporo",
+                    "email": "ngophuongtuan@gmail.com"
+                }
+            ],
+            "keywords": [
+                "image_checker"
+            ],
+            "time": "2018-06-11T02:50:43+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
