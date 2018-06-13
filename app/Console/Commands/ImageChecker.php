@@ -41,11 +41,10 @@ class ImageChecker extends Command
         $image = new \Poro\Image_Checker\ImageChecker($path);
         dump($image->detectFormat());
         $path = 'http://www.codediesel.com/wp-content/uploads/2010/09/winhex.gif';
-        $image = new \Poro\Image_Checker\ImageChecker(null, $path);
-        dump($image->detectFormat());
-        $path = '/home/tun/Pictures/1.png';
         $image = new \Poro\Image_Checker\ImageChecker($path);
         dump($image->detectFormat());
-
+        $path = 'https://secure.gravatar.com/avatar/fa9df688ce1e6ff39052faa763e839ff?s=60&d=mm&r=g';
+        $image = new \Poro\Image_Checker\ImageChecker($path);
+        dump($image->detectFormat());
     }
 }
