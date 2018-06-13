@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\addLunchDaily;
 use App\Console\Commands\SendMail;
+use App\Console\Commands\testrt;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\ImageChecker;
@@ -22,6 +23,7 @@ class Kernel extends ConsoleKernel
         addLunchDaily::class,
         SendMail::class,
         ImageChecker::class,
+        testrt::class,
     ];
 
     /**

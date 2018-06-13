@@ -21,8 +21,11 @@
         "laravel/tinker": "~1.0",
         "spatie/laravel-html": "^2.4",
         "spatie/laravel-permission": "^2.5",
+        "symfony/dom-crawler": "^4.1",
         "tinyporo/image_checker": "^1.0",
-        "webpatser/laravel-uuid": "^3.0"
+        "vuthaihoc/vi_encoder": "^0.1.1",
+        "webpatser/laravel-uuid": "^3.0",
+        "123dok/php-diff": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
@@ -41,7 +44,8 @@
         "psr-4": {
             "App\\": "app/",
             "Poro\\Algorithm\\": "packages/poro/algorithm/src",
-            "Poro\\Image_Checker\\": "packages/poro/image_checker/src"
+            "Poro\\Image_Checker\\": "packages/poro/image_checker/src",
+            "Poro\\PdfToRt\\": "packages/poro/pdf_to_rt/src"
         },
         "files": [
             "app/helpers.php"

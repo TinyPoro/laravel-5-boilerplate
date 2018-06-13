@@ -1,0 +1,21 @@
+{
+    "name": "tinyporo/image_checker",
+    "authors": [
+        {
+            "name": "tinyporo",
+            "email": "ngophuongtuan@gmail.com"
+        }
+    ],
+    "keywords": ["image_checker"],
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "src/"
+        ],
+        "psr-4": {"Poro\\Image_Checker\\": "src"}
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    }
+}
