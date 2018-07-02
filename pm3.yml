@@ -1,7 +1,7 @@
 apps:
 ## DECOMPRESS
   - script : ./artisan
-    name     : 'addLunch'
+    name     : 'sendMail'
     interpreter : 'C:\Program Files\PHP\v7.1\php.exe'
     cwd : ./
     exec_mode: fork

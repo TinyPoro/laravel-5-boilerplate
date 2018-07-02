@@ -3,8 +3,16 @@
 @section('title', app_name() . ' | '.__('labels.frontend.auth.login_box_title'))
 
 @section('content')
-    {!! $html !!}
+    <form id="lunch">
+        <input type="checkbox" class="date" name="date" value="Monday"> Thứ hai<br>
+        <input type="checkbox" class="date" name="date" value="Tuesday"> Thứ ba<br>
+        <input type="checkbox" class="date" name="date" value="Wednesday"> Thứ tư<br>
+        <input type="checkbox" class="date" name="date" value="Thursday"> Thứ năm<br>
+        <input type="checkbox" class="date" name="date" value="Friday"> Thứ sáu<br>
+    </form>
+
     <button id="register"> Xác nhận </button>
+
     <style>
         .alert-success{
             color: #155724;
@@ -16,48 +24,26 @@
 
 @section('after-script')
     <script>
-        $( document ).ready(function() {
-            var ordered_day = [@foreach($ordered_day as $day)"{{ $day->date }}"@if(!$loop->last),@endif @endforeach];
-            ordered_day.forEach(function (value) {
-                $('[data-date="' +value +'"]').css("background-color", "yellow");
-            });
-        });
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        document.querySelectorAll('tbody > tr > td').forEach(function (el) {
-            el.setAttribute("style", "");
-
-            el.addEventListener('click', function (e) {
-                let class_name = this.className;
-                let pos = class_name.indexOf("alert-success");
-                if(pos == -1) {
-                    class_name += " alert-success";
-                    this.className = class_name;
-                }
-                else this.classList.remove("alert-success");
-            })
-        })
-
         $('#register').click(function(){
             var date_arr = [];
-            $('tbody > tr > td').each(function (key, ele) {
-                let class_name = this.className;
-                let pos = class_name.indexOf("alert-success");
 
-                if(pos != -1) date_arr.push(ele.dataset.date);
+            $('.date').each(function(index, ele){
+               if(ele.checked) {
+                   date_arr.push(ele.value);
+               }
             });
 
-
+            console.log(date_arr);
 
             $.ajax({
                 method: 'POST',
                 url: '/lunch',
-//            'http://vnp.idist.me:81/',
                 data: {date_arr:date_arr},
                 success: function(result){
                     alert(result);

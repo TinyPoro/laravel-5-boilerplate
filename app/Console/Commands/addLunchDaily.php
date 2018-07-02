@@ -39,23 +39,26 @@ class addLunchDaily extends Command
      * @return mixed
      */
     public function handle()
-    {   date_default_timezone_set("Asia/Bangkok");
+    {
+        date_default_timezone_set("Asia/Bangkok");
         $now = Carbon::now();
-        if($now->format('l') == 'Friday') $tomorrow = $now->addDay(3);
-        else if($now->format('l') == 'Sunday') return;
+
+        $date_l = $now->format('l');
+        if($date_l == 'Friday') $tomorrow = $now->addDay(3);
+        else if($date_l == 'Sunday' || $date_l == 'Saturday') return;
         else $tomorrow = $now->addDay(1);
 
-        $tomorrow_string = date_format($tomorrow, 'Y-m-d');
+        $tomorrow_l = $tomorrow->format('l');
 
         $client = new Client();
 
-        DB::table('addLunch')->where('date', $tomorrow_string)->orderBy('id')
-            ->chunk(10, function($datas) use($client){
+        DB::table('addLunch')->where('date', $tomorrow_l)->orderBy('id')
+            ->chunk(10, function($datas) use($client, $tomorrow){
                 foreach($datas as $data){
                     $id = $data->id;
                     $name = $data->name;
                     $pass = DB::table('users')->where('name', $name)->first()->password;
-                    $date = $data->date;
+                    $date = date_format($tomorrow, 'Y-m-d');
 
                     $data = '[{ "type":"visit",
                   "url":"https://erp.nhanh.vn/hrm/lunch/add"},
@@ -73,6 +76,10 @@ class addLunchDaily extends Command
                   },
                 { "type":"reload",
                   "url":"https://erp.nhanh.vn/hrm/lunch/add"},
+                  { "type":"change",
+                  "selector":"[data-date=\''.$date.'\']",
+                    "value":"clickAble"
+                  },
                   { "type":"submit",
                   "selector":"[data-date=\''.$date.'\']",
                     "action":"click"
@@ -86,7 +93,7 @@ class addLunchDaily extends Command
 
                     $response = $client->request(
                         'POST',
-                        'http://127.0.0.1:81/',
+                        'http://127.0.0.1:8080/',
                         [
                             'form_params' => [
                                 'script' => $data
@@ -94,14 +101,14 @@ class addLunchDaily extends Command
                         ]
                     );
 
-                    $res = $response->getBody()->getContents();
+                    $res = json_decode($response->getBody()->getContents());
 
-                    if($res == 'ok') {
-                        $cur_status = DB::table('addLunch')->find($id)->status;
+                    if($res->success == true) {
+                        $cur_status = \DB::table('addLunch')->find($id)->status;
                         if($cur_status == 0) $new_status = 1;
                         else $new_status = 0;
 
-                        DB::table('addLunch')->where('id', $id)
+                        \DB::table('addLunch')->where('id', $id)
                             ->update(['status' => $new_status]);
                     }
                 }

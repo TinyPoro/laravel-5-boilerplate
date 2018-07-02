@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend\Auth;
 use App\Helpers\Auth\Auth;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use Cache;
 use Illuminate\Http\Request;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
@@ -50,77 +49,43 @@ class LoginController extends Controller
 
 
         //lưu thống tin người dùng vào csdl
-        if(DB::table('users')->where('name', $name)->count() == 0){
-            DB::table('users')->insert(
+        if(\DB::table('users')->where('name', $name)->count() == 0){
+            \DB::table('users')->insert(
                 ['name' => $name, 'password' => $pass]
             );
+        }else{
+            \DB::table('users')->where('name', $name)->update(['password' => $pass]);
         }
 
-        //lấy bảng đặt cơm
-        $client = new Client();
-        Session::put('name', $name);
-        Session::put('pass', $pass);
-        $response = $client->request(
-            'POST',
-            'http://127.0.0.1:81/',
-//            'http://vnp.idist.me:81/',
-            [
-                'form_params' => [
-                    'script' => '[{ "type":"visit", 
-                                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
-                                  { "type":"input", 
-                                  "selector":"#username",
-                                    "value":"'.$name.'"
-                                  },
-                                  { "type":"input", 
-                                  "selector":"#password",
-                                    "value":"'.$pass.'"
-                                  },
-                                  { "type":"submit", 
-                                  "selector":"#btnSignin",
-                                    "action":"click"
-                                  },
-                                  { "type":"get_html", 
-                                  "selector":"#calendar"
-                                  }
-                                ]'
-                ]
-            ]
-        );
+        \Session::put('name', $name);
+        \Session::put('pass', $pass);
 
-        $html = $response->getBody()->getContents();
-
-        $tomorrow = Carbon::now()->addDay(1);
-        $tomorrow_string = date_format($tomorrow, 'Y-m-d');
-        $ordered_day = DB::table('addLunch')->where('date', '>', $tomorrow_string)
-            ->where('name', $name)->get();
-        $ordered_day = json_decode($ordered_day);
-        return view('frontend.auth.table', ['html' => $html, 'ordered_day' => $ordered_day])
+        return view('frontend.auth.table')
             ->withSocialiteLinks((new Socialite)->getSocialLinks());
     }
 
     public function addLunch(Request $request)
     {
-        $date_arr = $request['date_arr'];
+        try{
+            $date_arr = $request['date_arr'];
 
+            $name = Session::get('name');
 
-        $name = Session::get('name');
+            $now = Carbon::now();
 
-        $now = Carbon::now();
+            \DB::table('addLunch')->where('name', $name)->delete();
 
-        foreach ($date_arr as $date){
-            $target = Carbon::parse($date);
-
-            if($target->gte($now)) {
-                if(DB::table('addLunch')->where('name', $name)->where('date', $date)->count() == 0){
-                    DB::table('addLunch')->insert(
-                        ['name' => $name, 'date' => $date]
-                    );
-                }
+            foreach ($date_arr as $date){
+                DB::table('addLunch')->insert(
+                    ['name' => $name, 'date' => $date]
+                );
             }
-        }
 
-        return "ok";
+            return "Bạn đã đặt cơm thành công!";
+        }catch(\Exception $e){
+            \Log::info("Lỗi khi đăng ký đặt cơm: ".$e->getMessage());
+            return "Có lỗi xảy ra :".$e->getMessage();
+        }
     }
 
     /**

@@ -42,19 +42,20 @@ class SendMail extends Command
     public function handle()
     {
         $now = Carbon::now();
-        if($now->format('l') == 'Friday') $tomorrow = $now->addDay(3);
-        else if($now->format('l') == 'Sunday') return;
+
+        $date_l = $now->format('l');
+        if($date_l == 'Friday') $tomorrow = $now->addDay(3);
+        else if($date_l == 'Sunday' || $date_l == 'Saturday') return;
         else $tomorrow = $now->addDay(1);
 
         $tomorrow_string = date_format($tomorrow, 'Y-m-d');
 
-        $builder = DB::table('addLunch')->where('date', $tomorrow_string)
+        $builder = DB::table('addLunch')->where('date', $date_l)
             ->where('status', 0)->orderBy('id');
 
         if($builder->count() == 0){
             $mail = new LunchError($tomorrow_string);
             Mail::to('ngophuongtuan@gmail.com')->queue($mail);
-            Mail::to('huyitptit2015@gmail.com')->queue($mail);
         }
         else{
             $builder->chunk(10, function($datas){
