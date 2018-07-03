@@ -50,7 +50,7 @@ class addLunchDaily extends Command
 
         $tomorrow_l = $tomorrow->format('l');
 
-        $client = new Client();
+        $client = new Client(['cookies' => true]);
 
         DB::table('addLunch')->where('date', $tomorrow_l)->orderBy('id')
             ->chunk(10, function($datas) use($client, $tomorrow){
@@ -60,50 +60,39 @@ class addLunchDaily extends Command
                     $pass = DB::table('users')->where('name', $name)->first()->password;
                     $date = date_format($tomorrow, 'Y-m-d');
 
-                    $data = '[{ "type":"visit",
-                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
-                  { "type":"input",
-                  "selector":"#username",
-                    "value":"'.$name.'"
-                  },
-                  { "type":"input",
-                  "selector":"#password",
-                    "value":"'.$pass.'"
-                  },
-                  { "type":"submit",
-                  "selector":"#btnSignin",
-                    "action":"click"
-                  },
-                { "type":"reload",
-                  "url":"https://erp.nhanh.vn/hrm/lunch/add"},
-                  { "type":"change",
-                  "selector":"[data-date=\''.$date.'\']",
-                    "value":"clickAble"
-                  },
-                  { "type":"submit",
-                  "selector":"[data-date=\''.$date.'\']",
-                    "action":"click"
-                  },
-                  { "type":"submit",
-                  "selector":"#btnSaveCrmContact",
-                    "action":"click"
-                  }
-                ]
-                 ';
-
                     $response = $client->request(
                         'POST',
-                        'http://127.0.0.1:8080/',
+                        'https://erp.nhanh.vn/user/signin',
                         [
                             'form_params' => [
-                                'script' => $data
+                                'username' => 'tuannp',
+                                'password' => 'tinyporo181',
                             ]
                         ]
                     );
 
+                    $cookieJar = $client->getConfig('cookies');
+
+                    if($cookieJar){
+                        //applyDated
+                        $response = $client->request(
+                            'POST',
+                            'https://erp.nhanh.vn/hrm/lunch/add',
+                            [
+                                'cookies' => $cookieJar,
+                                'form_params' => [
+                                    'bookDate' => [$date]
+                                ]
+                            ]
+                        );
+
+                    }else{
+                        continue;
+                    }
+
                     $res = json_decode($response->getBody()->getContents());
 
-                    if($res->success == true) {
+                    if(!is_null($res)) {
                         $cur_status = \DB::table('addLunch')->find($id)->status;
                         if($cur_status == 0) $new_status = 1;
                         else $new_status = 0;
