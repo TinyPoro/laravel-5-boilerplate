@@ -51,4 +51,5 @@
 
         @include('includes.partials.ga')
     </body>
+    @yield('after-script')
 </html>

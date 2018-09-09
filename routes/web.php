@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
  * Backend Routes
  * Namespaces indicate folder structure
  */
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'backend'], function () {
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     /*
      * These routes need view-backend permission
      * (good if you want to allow more than one group in the backend,
@@ -32,11 +32,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     include_route_files(__DIR__.'/backend/');
 });
 
-Route::get('/forum', 'Controller@forum')->middleware('auth')->name('forum');
-Route::get('/create_news', 'Controller@createNews')->middleware('auth')->name('create_news');
-Route::post('/store_news', 'Controller@storeNews')->middleware('auth')->name('store_news');
+Route::post('lunch', ['as' => 'add.lunch', 'uses' => 'Frontend\Auth\LoginController@addLunch']);
 
-Route::post('/check_pass', 'Controller@check_pass')->middleware('auth')->name('check_pass');
-Route::post('/delete_news', 'Controller@delete_news')->middleware('auth')->name('delete_news');
-
-
+Route::get('nhung', ['as' => 'nhung.get', 'uses' => 'Frontend\Auth\LoginController@nhungGet']);
+Route::post('nhung_support', ['as' => 'nhung.post', 'uses' => 'Frontend\Auth\LoginController@nhungSupport']);

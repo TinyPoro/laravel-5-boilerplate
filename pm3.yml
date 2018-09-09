@@ -1,0 +1,11 @@
+apps:
+## DECOMPRESS
+  - script : ./artisan
+    name     : 'sendMail'
+    interpreter : 'C:\Program Files\PHP\v7.1\php.exe'
+    cwd : ./
+    exec_mode: fork
+    args : send:mail
+    autorestart : true
+    restart_delay : 86400000
+    log_date_format : YYYYMMDDHHmm

@@ -18,6 +18,10 @@ return [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
     ],
+    'elastic_email' => [
+        'key' => env('ELASTIC_KEY'),
+        'account' => env('ELASTIC_ACCOUNT')
+    ],
 
     'ses' => [
         'key' => env('SES_KEY'),

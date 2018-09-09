@@ -180,11 +180,11 @@ return [
 
         'frontend' => [
             'avatar'                    => 'Avatar Location',
-            'email'                     => 'E-mail Address',
+            'email'                     => 'Tài khoản Erp',
             'first_name'                => 'First Name',
             'last_name'                 => 'Last Name',
             'name'                      => 'Full Name',
-            'password'                  => 'Password',
+            'password'                  => 'Mật khẩu Erp',
             'password_confirmation'     => 'Password Confirmation',
             'phone'                     => 'Phone',
             'message'                   => 'Message',
